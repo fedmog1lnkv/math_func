@@ -1,5 +1,8 @@
 import math
 
+# Error handling according to the EAFP rule
+class Error(Exception):
+    pass
 
 def after_comma(number, digit=0):
     '''  '''
@@ -16,10 +19,13 @@ def lenght(vector_arr):
 
 def scalar(vector_arr1, vector_arr2):
     ''' Returns the scalar product of vectors '''
-    trunk = 0
-    for i in range(len(vector_arr1)):
-        trunk += vector_arr1[i] * vector_arr2[i]
-    return trunk
+    try:
+        trunk = 0
+        for i in range(len(vector_arr1)):
+            trunk += vector_arr1[i] * vector_arr2[i]
+        return trunk
+    except:
+        raise Error("Type mismatch")
 
 
 def normalize(vector_arr):
@@ -51,20 +57,26 @@ def dif_vectors(vector_arr1, vector_arr2):
 
 def mul_vectors(vector_arr1, vector_arr2):
     ''' Return multiplication of vectors or multiplying a vector by a scalar '''
-    if type(vector_arr1) == int or type(vector_arr1) == float:
-        return [vector_arr2[i] * vector_arr1 for i in range(len(vector_arr2))]
-    elif type(vector_arr2) == int or type(vector_arr2) == float:
-        return [vector_arr1[i] * vector_arr2 for i in range(len(vector_arr1))]
-    return [vector_arr1[i] * vector_arr2[i] for i in range(len(vector_arr1))]
+    try:
+        if type(vector_arr1) == int or type(vector_arr1) == float:
+            return [vector_arr2[i] * vector_arr1 for i in range(len(vector_arr2))]
+        elif type(vector_arr2) == int or type(vector_arr2) == float:
+            return [vector_arr1[i] * vector_arr2 for i in range(len(vector_arr1))]
+        return [vector_arr1[i] * vector_arr2[i] for i in range(len(vector_arr1))]
+    except:
+        raise Error("Type mismatch")
 
 
 def div_vectors(vector_arr1, vector_arr2):
     ''' Return division of vectors or dividing a vector by a scalar '''
-    if type(vector_arr1) == int or type(vector_arr1) == float:
-        return [vector_arr2[i] / vector_arr1 for i in range(len(vector_arr2))]
-    elif type(vector_arr2) == int or type(vector_arr2) == float:
-        return [vector_arr1[i] / vector_arr2 for i in range(len(vector_arr1))]
-    return [vector_arr1[i] / vector_arr2[i] for i in range(len(vector_arr1))]
+    try:
+        if type(vector_arr1) == int or type(vector_arr1) == float:
+            return [vector_arr2[i] / vector_arr1 for i in range(len(vector_arr2))]
+        elif type(vector_arr2) == int or type(vector_arr2) == float:
+            return [vector_arr1[i] / vector_arr2 for i in range(len(vector_arr1))]
+        return [vector_arr1[i] / vector_arr2[i] for i in range(len(vector_arr1))]
+    except:
+        raise Error("Type mismatch")
 
 
 def is_collinear(vector_arr1, vector_arr2, digit=5):
@@ -99,6 +111,7 @@ def is_orthogonal(vector_arr1, vector_arr2, digit=5):
 
 def is_equal(vector_arr1, vector_arr2, digit=0):
     """Check two vectors for equality"""
+    assert len(vector_arr1) == len(vector_arr2), "Vector dimension error"
     for i in range(len(vector_arr1)):
         if vector_arr1[i] - vector_arr2[i] > 0 + digit:
             return False
