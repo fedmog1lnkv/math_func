@@ -1,90 +1,105 @@
-from math import *
+import math
 
-class Vector():
 
-    def __init__(self, *coords):
-        if type(coords[0]) == int or type(coords[0]) == float:
-            self.coords = coords
-            self.len_coords = len(coords)
-        elif type(coords[0]) == tuple:
-            self.coords = coords[0]
-            self.len_coords = len(coords[0])
+def after_comma(number, digit=0):
+    '''  '''
+    return float(f"{number:.{digit}f}")
 
-    def lenght(self):
-        '''Returns the length of the vector'''
-        trunk = 0
-        try:
-            for coord in self.coords:
-                trunk += (coord ** 2)
-            return trunk ** (1 / 2)
-        except:
-            print("всё полетело")
 
-    def scalar(self, other):
-        ''' Returns the scalar product of vectors '''
-        trunk = 0
-        try:
-            for i in range(len(self.coords)):
-                trunk += self.coords[i] * other.coords[i]
-            return trunk
-        except:
-            print("всё полетело")
-        # return (self.x * other.x) + (self.y * other.y) + (self.z * other.z)
+def lenght(vector_arr):
+    ''' Returns the length of the vector '''
+    trunk = 0
+    for coord in vector_arr:
+        trunk += (coord ** 2)
+    return trunk ** (1 / 2)
 
-    def __add__(self, other):
-        ''' Return self+other in the vector sense '''
-        try:
-            return Vector(tuple(self.coords[i] + other.coords[i] for i in range(self.len_coords)))
-        except:
-            print("всё полетело")
-        # return Vector((self.x + other.x), (self.y + other.y), (self.z + other.z))
 
-    def __sub__(self, other):
-        ''' Return self+other in the vector sense '''
-        try:
-            for i in range(len(self.coords)):
-                return Vector(tuple(self.coords[i] - other.coords[i] for i in range(self.len_coords)))
-            return tuple(self.coords)
-        except:
-            print("всё полетело")
-        # return self + (other * (-1))
-        # return Vector((self.x - other.x), (self.y - other.y), (self.z - other.z))
+def scalar(vector_arr1, vector_arr2):
+    ''' Returns the scalar product of vectors '''
+    trunk = 0
+    for i in range(len(vector_arr1)):
+        trunk += vector_arr1[i] * vector_arr2[i]
+    return trunk
 
-    def __mul__(self, other):
-        ''' Return self*other in the vector sense or self*scalar'''
-        if type(other) == Vector:
-            return Vector(tuple(self.coords[i] * other.coords[i] for i in range(self.len_coords)))
-        elif type(other) == int or type(other) == float:
-            return Vector(tuple(self.coords[i] + other for i in range(self.len_coords)))
 
-    def __truediv__(self, other):
-        ''' Return self/other in the vector sense or self/scalar'''
-        if type(other) == Vector:
-            return Vector(tuple(self.coords[i] / other.coords[i] for i in range(self.len_coords)))
-        elif type(other) == int or type(other) == float:
-            return Vector(tuple(self.coords[i] / other for i in range(self.len_coords)))
+def normalize(vector_arr):
+    ''' Returns a normalized vector '''
+    return [i / lenght(vector_arr) for i in vector_arr]
 
-    def cos(self, other):
-        ''' Return the cos value between two vectors '''
-        trunk = 0
-        try:
-            return Vector(self.scalar(other) / (self.lenght() * other.lenght()))
-        except:
-            pass
 
-    def is_collinear(self, other):
-        ''' Checks vectors for collinearity '''
-        try:
-            print(abs(self.scalar(other)), (self.lenght() * other.lenght()))
-            return (abs(self.scalar(other)) == (self.lenght() * other.lenght()))
-        except:
-            print("всё полетело")
+def cos_vectors(vector_arr1, vector_arr2, digit=5):
+    ''' Return the cos value between two vectors with the specified accuracy (default is 5) '''
+    return after_comma(scalar(vector_arr1, vector_arr2) / (lenght(vector_arr1) * lenght(vector_arr2)), digit)
 
-    def co_directional(self, other):
-        pass
 
-    def __str__(self):
-        trunk = ""
-        for i in range(self.len_coords):
-            trunk += str(self.coords[i]) + ", "
-        return trunk[:-2]
+def angular(vector_arr1, vector_arr2, digit=5):
+    ''' Returns the angle between vectors with the specified accuracy (default is 5) '''
+    cos = cos_vectors(vector_arr1, vector_arr2, digit)
+    rad = math.acos(cos)
+    return round(rad / math.pi * 180, digit)
+
+
+def sum_vectors(vector_arr1, vector_arr2):
+    ''' Return sum of vectors '''
+    return [vector_arr1[i] + vector_arr2[i] for i in range(len(vector_arr1))]
+
+
+def dif_vectors(vector_arr1, vector_arr2):
+    ''' Return difference of vectors '''
+    return [vector_arr1[i] - vector_arr2[i] for i in range(len(vector_arr1))]
+
+
+def mul_vectors(vector_arr1, vector_arr2):
+    ''' Return multiplication of vectors or multiplying a vector by a scalar '''
+    if type(vector_arr1) == int or type(vector_arr1) == float:
+        return [vector_arr2[i] * vector_arr1 for i in range(len(vector_arr2))]
+    elif type(vector_arr2) == int or type(vector_arr2) == float:
+        return [vector_arr1[i] * vector_arr2 for i in range(len(vector_arr1))]
+    return [vector_arr1[i] * vector_arr2[i] for i in range(len(vector_arr1))]
+
+
+def div_vectors(vector_arr1, vector_arr2):
+    ''' Return division of vectors or dividing a vector by a scalar '''
+    if type(vector_arr1) == int or type(vector_arr1) == float:
+        return [vector_arr2[i] / vector_arr1 for i in range(len(vector_arr2))]
+    elif type(vector_arr2) == int or type(vector_arr2) == float:
+        return [vector_arr1[i] / vector_arr2 for i in range(len(vector_arr1))]
+    return [vector_arr1[i] / vector_arr2[i] for i in range(len(vector_arr1))]
+
+
+def is_collinear(vector_arr1, vector_arr2, digit=5):
+    ''' Checks vectors for collinearity with the specified accuracy (default is 5) '''
+    return abs(cos_vectors(vector_arr1, vector_arr2, digit)) == 1.0
+
+
+def is_directional(vector_arr1, vector_arr2, digit=5):
+    ''' Checks vectors for co-directionality with a given accuracy (default is 5) '''
+    return cos_vectors(vector_arr1, vector_arr2, digit) == 1.0
+
+
+def is_not_directional(vector_arr1, vector_arr2, digit=3):
+    ''' Returns the orthogonality value of vectors with a given accuracy (default is 5) '''
+    return cos_vectors(vector_arr1, vector_arr2, digit) == -1.0
+
+
+def change_direction(vector_arr):
+    ''' Changes the direction of the vector '''
+    vector_arr = [vector_arr[i] * -1 for i in range(len(vector_arr))]
+
+
+def projection(vector_arr1, vector_arr2):
+    ''' Returns the projection of a vector onto a vector '''
+    return scalar(vector_arr1, vector_arr2) / lenght(vector_arr2)
+
+
+def is_orthogonal(vector_arr1, vector_arr2, digit=5):
+    ''' Returns the orthogonality value of vectors with a given accuracy (default is 5) '''
+    return cos_vectors(vector_arr1, vector_arr2, digit) == 0
+
+
+def is_equal(vector_arr1, vector_arr2, digit=0):
+    """Check two vectors for equality"""
+    for i in range(len(vector_arr1)):
+        if vector_arr1[i] - vector_arr2[i] > 0 + digit:
+            return False
+    return True
