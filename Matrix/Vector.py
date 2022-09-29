@@ -105,7 +105,7 @@ def is_not_directional(vector_arr1, vector_arr2, digit=3):
 def change_direction(vector_arr):
     ''' Changes the direction of the vector '''
     ensure_types_vector(vector_arr)
-    vector_arr = [vector_arr[i] * -1 for i in range(len(vector_arr))]
+    return [vector_arr[i] * -1 for i in range(len(vector_arr))]
 
 
 def projection(vector_arr1, vector_arr2):
