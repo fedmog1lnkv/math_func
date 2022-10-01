@@ -1,5 +1,5 @@
 import math
-from .Errors import *
+from Errors import *
 
 
 def after_comma(number, digit=0):
@@ -65,6 +65,7 @@ def sort_arguments(vector_arr1, vector_arr2):
     if is_scalar(vector_arr1):
         ensure_types_vector(vector_arr2)
         return vector_arr2, vector_arr1
+    ensure_types_vector(vector_arr1)
     return vector_arr1, vector_arr2
 
 

@@ -1,5 +1,5 @@
 import Vector as vec
-from Errors import *
+from Vector.Errors import *
 
 
 def sum_matrix(matrix1, matrix2):
