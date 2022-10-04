@@ -41,6 +41,10 @@ def ensure_types_matrix(arr):
             if type(row[j]) != int and type(row[j]) != float:
                 raise TypeError("An incorrect type is found in one of the row")
 
+def ensure_types_matrices(arr1, arr2):
+    ensure_types_matrix(arr1)
+    ensure_types_matrix(arr2)
+
 
 def ensure_shape_matrix_mul(arr1, arr2):
     if len(arr1[0]) != len(arr2):
@@ -48,4 +52,5 @@ def ensure_shape_matrix_mul(arr1, arr2):
 
 
 def ensure_full_matrix(arr1, arr2):
-    pass
+    ensure_types_matrices(arr1, arr2)
+    ensure_shape_matrix_mul(arr1, arr2)
