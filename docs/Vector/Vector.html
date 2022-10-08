@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>math_func.Vector.Vector API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>math_func.Vector.Vector</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import math
+from Errors import *
+
+
+def after_comma(number, digit=0):
+    &#39;&#39;&#39; Number of decimal places &#39;&#39;&#39;
+    return round(number, digit)
+
+
+def lenght(vector_arr):
+    &#39;&#39;&#39; Returns the length of the vector &#39;&#39;&#39;
+    ensure_types_vector(vector_arr)
+    trunk = 0
+    for coord in vector_arr:
+        trunk += (coord ** 2)
+    return trunk ** (1 / 2)
+
+
+def scalar(vector_arr1, vector_arr2):
+    &#39;&#39;&#39; Returns the scalar product of vectors &#39;&#39;&#39;
+    ensure_full_vector(vector_arr1, vector_arr2)
+    trunk = 0
+    for i in range(len(vector_arr1)):
+        trunk += vector_arr1[i] * vector_arr2[i]
+    return trunk
+
+
+def normalize(vector_arr):
+    &#39;&#39;&#39; Returns a normalized vector &#39;&#39;&#39;
+    ensure_types_vector(vector_arr)
+    return [i / lenght(vector_arr) for i in vector_arr]
+
+
+def cos_vectors(vector_arr1, vector_arr2, digit=5):
+    &#39;&#39;&#39; Return the cos value between two vectors with the specified accuracy (default is 5) &#39;&#39;&#39;
+    ensure_full_vector(vector_arr1, vector_arr2)
+    return after_comma(scalar(vector_arr1, vector_arr2) / (lenght(vector_arr1) * lenght(vector_arr2)), digit)
+
+
+def angular(vector_arr1, vector_arr2, digit=5):
+    &#39;&#39;&#39; Returns the angle between vectors with the specified accuracy (default is 5) &#39;&#39;&#39;
+    ensure_full_vector(vector_arr1, vector_arr2)
+    cos = cos_vectors(vector_arr1, vector_arr2, digit)
+    rad = math.acos(cos)
+    return round(rad / math.pi * 180, digit)
+
+
+def sum_vectors(vector_arr1, vector_arr2):
+    &#39;&#39;&#39; Return sum of vectors &#39;&#39;&#39;
+    ensure_full_vector(vector_arr1, vector_arr2)
+    return [vector_arr1[i] + vector_arr2[i] for i in range(len(vector_arr1))]
+
+
+def dif_vectors(vector_arr1, vector_arr2):
+    &#39;&#39;&#39; Return difference of vectors &#39;&#39;&#39;
+    ensure_full_vector(vector_arr1, vector_arr2)
+    return [vector_arr1[i] - vector_arr2[i] for i in range(len(vector_arr1))]
+
+
+def is_scalar(vector_arr):
+    return type(vector_arr) == int or type(vector_arr) == float
+
+
+def sort_arguments(vector_arr1, vector_arr2):
+    if is_scalar(vector_arr1):
+        ensure_types_vector(vector_arr2)
+        return vector_arr2, vector_arr1
+    ensure_types_vector(vector_arr1)
+    return vector_arr1, vector_arr2
+
+
+def mul_vectors(vector_arr1, vector_arr2):
+    &#39;&#39;&#39; Return multiplication of vectors or multiplying a vector by a scalar &#39;&#39;&#39;
+    if is_scalar(vector_arr1) or is_scalar(vector_arr2):
+        vector_arr1, scal = sort_arguments(vector_arr1, vector_arr2)
+        return [vector_arr1[i] * scal for i in range(len(vector_arr1))]
+    ensure_full_vector(vector_arr1, vector_arr2)
+    return [vector_arr1[i] * vector_arr2[i] for i in range(len(vector_arr1))]
+
+
+def div_vectors(vector_arr1, vector_arr2):
+    &#39;&#39;&#39; Return division of vectors or dividing a vector by a scalar &#39;&#39;&#39;
+    if is_scalar(vector_arr1) or is_scalar(vector_arr2):
+        vector_arr1, scal = sort_arguments(vector_arr1, vector_arr2)
+        return [vector_arr1[i] / scal for i in range(len(vector_arr1))]
+    ensure_full_vector(vector_arr1, vector_arr2)
+    return [vector_arr1[i] / vector_arr2[i] for i in range(len(vector_arr1))]
+
+
+def is_collinear(vector_arr1, vector_arr2, digit=5):
+    &#39;&#39;&#39; Checks vectors for collinearity with the specified accuracy (default is 5) &#39;&#39;&#39;
+    ensure_types_vectors(vector_arr1, vector_arr2)
+    return abs(cos_vectors(vector_arr1, vector_arr2, digit)) == 1.0
+
+
+def is_directional(vector_arr1, vector_arr2, digit=5):
+    &#39;&#39;&#39; Checks vectors for co-directionality with a given accuracy (default is 5) &#39;&#39;&#39;
+    ensure_types_vectors(vector_arr1, vector_arr2)
+    return cos_vectors(vector_arr1, vector_arr2, digit) == 1.0
+
+
+def is_not_directional(vector_arr1, vector_arr2, digit=3):
+    &#39;&#39;&#39; Returns the orthogonality value of vectors with a given accuracy (default is 5) &#39;&#39;&#39;
+    ensure_types_vectors(vector_arr1, vector_arr2)
+    return cos_vectors(vector_arr1, vector_arr2, digit) == -1.0
+
+
+def change_direction(vector_arr):
+    &#39;&#39;&#39; Changes the direction of the vector &#39;&#39;&#39;
+    ensure_types_vector(vector_arr)
+    return [vector_arr[i] * -1 for i in range(len(vector_arr))]
+
+
+def projection(vector_arr1, vector_arr2):
+    &#39;&#39;&#39; Returns the projection of a vector onto a vector &#39;&#39;&#39;
+    ensure_types_vectors(vector_arr1, vector_arr2)
+    return scalar(vector_arr1, vector_arr2) / lenght(vector_arr2)
+
+
+def is_orthogonal(vector_arr1, vector_arr2, digit=5):
+    &#39;&#39;&#39; Returns the orthogonality value of vectors with a given accuracy (default is 5) &#39;&#39;&#39;
+    ensure_types_vectors(vector_arr1, vector_arr2)
+    return cos_vectors(vector_arr1, vector_arr2, digit) == 0
+
+
+def is_equal(vector_arr1, vector_arr2, digit=0):
+    &#34;&#34;&#34;Check two vectors for equality&#34;&#34;&#34;
+    ensure_full_vector(vector_arr1, vector_arr2)
+    for i in range(len(vector_arr1)):
+        if vector_arr1[i] - vector_arr2[i] &gt; 0 + digit:
+            return False
+    return True</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="math_func.Vector.Vector.after_comma"><code class="name flex">
+<span>def <span class="ident">after_comma</span></span>(<span>number, digit=0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Number of decimal places</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def after_comma(number, digit=0):
+    &#39;&#39;&#39; Number of decimal places &#39;&#39;&#39;
+    return round(number, digit)</code></pre>
+</details>
+</dd>
+<dt id="math_func.Vector.Vector.angular"><code class="name flex">
+<span>def <span class="ident">angular</span></span>(<span>vector_arr1, vector_arr2, digit=5)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the angle between vectors with the specified accuracy (default is 5)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def angular(vector_arr1, vector_arr2, digit=5):
+    &#39;&#39;&#39; Returns the angle between vectors with the specified accuracy (default is 5) &#39;&#39;&#39;
+    ensure_full_vector(vector_arr1, vector_arr2)
+    cos = cos_vectors(vector_arr1, vector_arr2, digit)
+    rad = math.acos(cos)
+    return round(rad / math.pi * 180, digit)</code></pre>
+</details>
+</dd>
+<dt id="math_func.Vector.Vector.change_direction"><code class="name flex">
+<span>def <span class="ident">change_direction</span></span>(<span>vector_arr)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Changes the direction of the vector</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def change_direction(vector_arr):
+    &#39;&#39;&#39; Changes the direction of the vector &#39;&#39;&#39;
+    ensure_types_vector(vector_arr)
+    return [vector_arr[i] * -1 for i in range(len(vector_arr))]</code></pre>
+</details>
+</dd>
+<dt id="math_func.Vector.Vector.cos_vectors"><code class="name flex">
+<span>def <span class="ident">cos_vectors</span></span>(<span>vector_arr1, vector_arr2, digit=5)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the cos value between two vectors with the specified accuracy (default is 5)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cos_vectors(vector_arr1, vector_arr2, digit=5):
+    &#39;&#39;&#39; Return the cos value between two vectors with the specified accuracy (default is 5) &#39;&#39;&#39;
+    ensure_full_vector(vector_arr1, vector_arr2)
+    return after_comma(scalar(vector_arr1, vector_arr2) / (lenght(vector_arr1) * lenght(vector_arr2)), digit)</code></pre>
+</details>
+</dd>
+<dt id="math_func.Vector.Vector.dif_vectors"><code class="name flex">
+<span>def <span class="ident">dif_vectors</span></span>(<span>vector_arr1, vector_arr2)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return difference of vectors</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dif_vectors(vector_arr1, vector_arr2):
+    &#39;&#39;&#39; Return difference of vectors &#39;&#39;&#39;
+    ensure_full_vector(vector_arr1, vector_arr2)
+    return [vector_arr1[i] - vector_arr2[i] for i in range(len(vector_arr1))]</code></pre>
+</details>
+</dd>
+<dt id="math_func.Vector.Vector.div_vectors"><code class="name flex">
+<span>def <span class="ident">div_vectors</span></span>(<span>vector_arr1, vector_arr2)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return division of vectors or dividing a vector by a scalar</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def div_vectors(vector_arr1, vector_arr2):
+    &#39;&#39;&#39; Return division of vectors or dividing a vector by a scalar &#39;&#39;&#39;
+    if is_scalar(vector_arr1) or is_scalar(vector_arr2):
+        vector_arr1, scal = sort_arguments(vector_arr1, vector_arr2)
+        return [vector_arr1[i] / scal for i in range(len(vector_arr1))]
+    ensure_full_vector(vector_arr1, vector_arr2)
+    return [vector_arr1[i] / vector_arr2[i] for i in range(len(vector_arr1))]</code></pre>
+</details>
+</dd>
+<dt id="math_func.Vector.Vector.is_collinear"><code class="name flex">
+<span>def <span class="ident">is_collinear</span></span>(<span>vector_arr1, vector_arr2, digit=5)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks vectors for collinearity with the specified accuracy (default is 5)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_collinear(vector_arr1, vector_arr2, digit=5):
+    &#39;&#39;&#39; Checks vectors for collinearity with the specified accuracy (default is 5) &#39;&#39;&#39;
+    ensure_types_vectors(vector_arr1, vector_arr2)
+    return abs(cos_vectors(vector_arr1, vector_arr2, digit)) == 1.0</code></pre>
+</details>
+</dd>
+<dt id="math_func.Vector.Vector.is_directional"><code class="name flex">
+<span>def <span class="ident">is_directional</span></span>(<span>vector_arr1, vector_arr2, digit=5)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks vectors for co-directionality with a given accuracy (default is 5)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_directional(vector_arr1, vector_arr2, digit=5):
+    &#39;&#39;&#39; Checks vectors for co-directionality with a given accuracy (default is 5) &#39;&#39;&#39;
+    ensure_types_vectors(vector_arr1, vector_arr2)
+    return cos_vectors(vector_arr1, vector_arr2, digit) == 1.0</code></pre>
+</details>
+</dd>
+<dt id="math_func.Vector.Vector.is_equal"><code class="name flex">
+<span>def <span class="ident">is_equal</span></span>(<span>vector_arr1, vector_arr2, digit=0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Check two vectors for equality</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_equal(vector_arr1, vector_arr2, digit=0):
+    &#34;&#34;&#34;Check two vectors for equality&#34;&#34;&#34;
+    ensure_full_vector(vector_arr1, vector_arr2)
+    for i in range(len(vector_arr1)):
+        if vector_arr1[i] - vector_arr2[i] &gt; 0 + digit:
+            return False
+    return True</code></pre>
+</details>
+</dd>
+<dt id="math_func.Vector.Vector.is_not_directional"><code class="name flex">
+<span>def <span class="ident">is_not_directional</span></span>(<span>vector_arr1, vector_arr2, digit=3)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the orthogonality value of vectors with a given accuracy (default is 5)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_not_directional(vector_arr1, vector_arr2, digit=3):
+    &#39;&#39;&#39; Returns the orthogonality value of vectors with a given accuracy (default is 5) &#39;&#39;&#39;
+    ensure_types_vectors(vector_arr1, vector_arr2)
+    return cos_vectors(vector_arr1, vector_arr2, digit) == -1.0</code></pre>
+</details>
+</dd>
+<dt id="math_func.Vector.Vector.is_orthogonal"><code class="name flex">
+<span>def <span class="ident">is_orthogonal</span></span>(<span>vector_arr1, vector_arr2, digit=5)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the orthogonality value of vectors with a given accuracy (default is 5)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_orthogonal(vector_arr1, vector_arr2, digit=5):
+    &#39;&#39;&#39; Returns the orthogonality value of vectors with a given accuracy (default is 5) &#39;&#39;&#39;
+    ensure_types_vectors(vector_arr1, vector_arr2)
+    return cos_vectors(vector_arr1, vector_arr2, digit) == 0</code></pre>
+</details>
+</dd>
+<dt id="math_func.Vector.Vector.is_scalar"><code class="name flex">
+<span>def <span class="ident">is_scalar</span></span>(<span>vector_arr)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_scalar(vector_arr):
+    return type(vector_arr) == int or type(vector_arr) == float</code></pre>
+</details>
+</dd>
+<dt id="math_func.Vector.Vector.lenght"><code class="name flex">
+<span>def <span class="ident">lenght</span></span>(<span>vector_arr)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the length of the vector</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def lenght(vector_arr):
+    &#39;&#39;&#39; Returns the length of the vector &#39;&#39;&#39;
+    ensure_types_vector(vector_arr)
+    trunk = 0
+    for coord in vector_arr:
+        trunk += (coord ** 2)
+    return trunk ** (1 / 2)</code></pre>
+</details>
+</dd>
+<dt id="math_func.Vector.Vector.mul_vectors"><code class="name flex">
+<span>def <span class="ident">mul_vectors</span></span>(<span>vector_arr1, vector_arr2)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return multiplication of vectors or multiplying a vector by a scalar</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mul_vectors(vector_arr1, vector_arr2):
+    &#39;&#39;&#39; Return multiplication of vectors or multiplying a vector by a scalar &#39;&#39;&#39;
+    if is_scalar(vector_arr1) or is_scalar(vector_arr2):
+        vector_arr1, scal = sort_arguments(vector_arr1, vector_arr2)
+        return [vector_arr1[i] * scal for i in range(len(vector_arr1))]
+    ensure_full_vector(vector_arr1, vector_arr2)
+    return [vector_arr1[i] * vector_arr2[i] for i in range(len(vector_arr1))]</code></pre>
+</details>
+</dd>
+<dt id="math_func.Vector.Vector.normalize"><code class="name flex">
+<span>def <span class="ident">normalize</span></span>(<span>vector_arr)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns a normalized vector</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def normalize(vector_arr):
+    &#39;&#39;&#39; Returns a normalized vector &#39;&#39;&#39;
+    ensure_types_vector(vector_arr)
+    return [i / lenght(vector_arr) for i in vector_arr]</code></pre>
+</details>
+</dd>
+<dt id="math_func.Vector.Vector.projection"><code class="name flex">
+<span>def <span class="ident">projection</span></span>(<span>vector_arr1, vector_arr2)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the projection of a vector onto a vector</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def projection(vector_arr1, vector_arr2):
+    &#39;&#39;&#39; Returns the projection of a vector onto a vector &#39;&#39;&#39;
+    ensure_types_vectors(vector_arr1, vector_arr2)
+    return scalar(vector_arr1, vector_arr2) / lenght(vector_arr2)</code></pre>
+</details>
+</dd>
+<dt id="math_func.Vector.Vector.scalar"><code class="name flex">
+<span>def <span class="ident">scalar</span></span>(<span>vector_arr1, vector_arr2)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the scalar product of vectors</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def scalar(vector_arr1, vector_arr2):
+    &#39;&#39;&#39; Returns the scalar product of vectors &#39;&#39;&#39;
+    ensure_full_vector(vector_arr1, vector_arr2)
+    trunk = 0
+    for i in range(len(vector_arr1)):
+        trunk += vector_arr1[i] * vector_arr2[i]
+    return trunk</code></pre>
+</details>
+</dd>
+<dt id="math_func.Vector.Vector.sort_arguments"><code class="name flex">
+<span>def <span class="ident">sort_arguments</span></span>(<span>vector_arr1, vector_arr2)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def sort_arguments(vector_arr1, vector_arr2):
+    if is_scalar(vector_arr1):
+        ensure_types_vector(vector_arr2)
+        return vector_arr2, vector_arr1
+    ensure_types_vector(vector_arr1)
+    return vector_arr1, vector_arr2</code></pre>
+</details>
+</dd>
+<dt id="math_func.Vector.Vector.sum_vectors"><code class="name flex">
+<span>def <span class="ident">sum_vectors</span></span>(<span>vector_arr1, vector_arr2)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return sum of vectors</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def sum_vectors(vector_arr1, vector_arr2):
+    &#39;&#39;&#39; Return sum of vectors &#39;&#39;&#39;
+    ensure_full_vector(vector_arr1, vector_arr2)
+    return [vector_arr1[i] + vector_arr2[i] for i in range(len(vector_arr1))]</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="math_func.Vector" href="index.html">math_func.Vector</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="math_func.Vector.Vector.after_comma" href="#math_func.Vector.Vector.after_comma">after_comma</a></code></li>
+<li><code><a title="math_func.Vector.Vector.angular" href="#math_func.Vector.Vector.angular">angular</a></code></li>
+<li><code><a title="math_func.Vector.Vector.change_direction" href="#math_func.Vector.Vector.change_direction">change_direction</a></code></li>
+<li><code><a title="math_func.Vector.Vector.cos_vectors" href="#math_func.Vector.Vector.cos_vectors">cos_vectors</a></code></li>
+<li><code><a title="math_func.Vector.Vector.dif_vectors" href="#math_func.Vector.Vector.dif_vectors">dif_vectors</a></code></li>
+<li><code><a title="math_func.Vector.Vector.div_vectors" href="#math_func.Vector.Vector.div_vectors">div_vectors</a></code></li>
+<li><code><a title="math_func.Vector.Vector.is_collinear" href="#math_func.Vector.Vector.is_collinear">is_collinear</a></code></li>
+<li><code><a title="math_func.Vector.Vector.is_directional" href="#math_func.Vector.Vector.is_directional">is_directional</a></code></li>
+<li><code><a title="math_func.Vector.Vector.is_equal" href="#math_func.Vector.Vector.is_equal">is_equal</a></code></li>
+<li><code><a title="math_func.Vector.Vector.is_not_directional" href="#math_func.Vector.Vector.is_not_directional">is_not_directional</a></code></li>
+<li><code><a title="math_func.Vector.Vector.is_orthogonal" href="#math_func.Vector.Vector.is_orthogonal">is_orthogonal</a></code></li>
+<li><code><a title="math_func.Vector.Vector.is_scalar" href="#math_func.Vector.Vector.is_scalar">is_scalar</a></code></li>
+<li><code><a title="math_func.Vector.Vector.lenght" href="#math_func.Vector.Vector.lenght">lenght</a></code></li>
+<li><code><a title="math_func.Vector.Vector.mul_vectors" href="#math_func.Vector.Vector.mul_vectors">mul_vectors</a></code></li>
+<li><code><a title="math_func.Vector.Vector.normalize" href="#math_func.Vector.Vector.normalize">normalize</a></code></li>
+<li><code><a title="math_func.Vector.Vector.projection" href="#math_func.Vector.Vector.projection">projection</a></code></li>
+<li><code><a title="math_func.Vector.Vector.scalar" href="#math_func.Vector.Vector.scalar">scalar</a></code></li>
+<li><code><a title="math_func.Vector.Vector.sort_arguments" href="#math_func.Vector.Vector.sort_arguments">sort_arguments</a></code></li>
+<li><code><a title="math_func.Vector.Vector.sum_vectors" href="#math_func.Vector.Vector.sum_vectors">sum_vectors</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
