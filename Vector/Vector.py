@@ -123,10 +123,10 @@ def is_orthogonal(vector_arr1, vector_arr2, digit=5):
     return cos_vectors(vector_arr1, vector_arr2, digit) == 0
 
 
-def is_equal(vector_arr1, vector_arr2, digit=0):
+def is_equal(vector_arr1, vector_arr2):
     """Check two vectors for equality"""
     ensure_full_vector(vector_arr1, vector_arr2)
-    for i in range(len(vector_arr1)):
-        if vector_arr1[i] - vector_arr2[i] > 0 + digit:
-            return False
-    return True
+    if lenght(vector_arr1) == lenght(vector_arr2) and is_collinear(vector_arr1, vector_arr2) and is_directional(
+            vector_arr1, vector_arr2):
+        return True
+    return False
