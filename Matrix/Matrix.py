@@ -1,5 +1,5 @@
-import Vector.Vector as vec
-from Errors import *
+import vector.vector as vec
+from errors import *
 
 
 def sum_matrix(matrix1, matrix2):
@@ -49,7 +49,7 @@ def mul_matrix(matrix1, matrix2):
 
 def get_row(matrix, row):
     ''' Returns a row from the matrix by index '''
-    return matrix[row - 1]
+    return matrix[row]
 
 
 def get_column(matrix, column):

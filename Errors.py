@@ -55,7 +55,7 @@ def ensure_types_matrices(arr1, arr2):
 
 def ensure_shape_matrix_mul(arr1, arr2):
     ''' Checking the size of matrices during multiplication '''
-    if len(arr1[0]) != len(arr2):
+    if len(arr1[0]) != len(arr2) or len(arr2[0]) != len(arr1):
         raise ValueError("Cannot multiply the two matrices, incorrect dimensions")
 
 

@@ -1,5 +1,5 @@
 import math
-from Errors import *
+from errors import *
 
 
 def after_comma(number, digit=0):
