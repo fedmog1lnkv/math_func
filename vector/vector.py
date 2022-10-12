@@ -39,7 +39,6 @@ def cos_vectors(vector_arr1, vector_arr2, digit=5):
 
 def angular(vector_arr1, vector_arr2, digit=5):
     ''' Returns the angle between vectors with the specified accuracy (default is 5) '''
-    ensure_full_vector(vector_arr1, vector_arr2)
     cos = cos_vectors(vector_arr1, vector_arr2, digit)
     rad = math.acos(cos)
     return round(rad / math.pi * 180, digit)
