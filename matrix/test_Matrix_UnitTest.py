@@ -34,8 +34,8 @@ class Tests_Vector(unittest.TestCase):
             mat.sum_matrix(m1, m2)
 
     def test_negative_ValueError_dif_matrix(self):
-        m1 = [[87, 14, 76], [91, -24, -21]]
-        m2 = [[-14, 54, 90], [65, 42, -87], [27, 16, -52]]
+        m1 = [[87, 14, 76], [91, -24, -21], [65, 42, -87]]
+        m2 = [[-14, 54, 90], [27, 16, -52]]
         with self.assertRaises(ValueError):
             mat.sum_matrix(m1, m2)
 
@@ -60,7 +60,7 @@ class Tests_Vector(unittest.TestCase):
             mat.mul_matrix(m1, m2)
 
     def test_negative_ValueError_mul_matrix(self):
-        m1 = [[-40, 14, -81], [-91, -15, -68]]
+        m1 = [[-40, 14], [-91, -15, -68]]
         m2 = [[8, 96, -56], [93, 7, -10], [-50, -38, 72]]
         with self.assertRaises(ValueError):
             mat.mul_matrix(m1, m2)
