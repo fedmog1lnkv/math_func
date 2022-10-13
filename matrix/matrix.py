@@ -1,5 +1,6 @@
 import vector.vector as vec
 from errors import *
+from copy import deepcopy
 
 
 def sum_matrix(matrix1, matrix2):
@@ -47,18 +48,24 @@ def mul_matrix(matrix1, matrix2):
     return matrix_out
 
 
-def get_row(matrix, row):
+def get_row(matrix, row, do_copy=True):
     """ Returns a row from the matrix by index """
+    if do_copy == True:
+        return deepcopy(matrix[row])
     return matrix[row]
 
 
-def get_column(matrix, column):
+def get_column(matrix, column, do_copy=True):
     """ Returns a column from the matrix by index """
-    return get_row(transportation_matrix(matrix), column)
+    return get_row(transportation_matrix(matrix), column, do_copy)
 
 
-def row_switch(matrix, row1, row2):
+def row_switch(matrix, row1, row2, do_copy=True):
     """ Returns a matrix with permuted rows by indexes """
+    if do_copy == True:
+        matrix_copy = deepcopy(matrix)
+        matrix_copy[row1 - 1], matrix_copy[row2 - 1] = matrix_copy[row2 - 1], matrix_copy[row1 - 1]
+        return matrix_copy
     matrix[row1 - 1], matrix[row2 - 1] = matrix[row2 - 1], matrix[row1 - 1]
     return matrix
 
