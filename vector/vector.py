@@ -1,10 +1,11 @@
 import math
 from errors import *
 
+EPS = 1e-10
 
-def after_comma(number, digit=0):
-    """ Number of decimal places """
-    return round(number, digit)
+
+def is_almost_equal(a, b, eps=EPS):
+    return abs(a - b) <= eps
 
 
 def lenght(vector_arr):
@@ -31,17 +32,17 @@ def normalize(vector_arr):
     return [i / lenght(vector_arr) for i in vector_arr]
 
 
-def cos_vectors(vector_arr1, vector_arr2, digit=5):
+def cos_vectors(vector_arr1, vector_arr2):
     """ Return the cos value between two vectors with the specified accuracy (default is 5) """
     ensure_full_vector(vector_arr1, vector_arr2)
-    return after_comma(scalar(vector_arr1, vector_arr2) / (lenght(vector_arr1) * lenght(vector_arr2)), digit)
+    return scalar(vector_arr1, vector_arr2) / (lenght(vector_arr1) * lenght(vector_arr2))
 
 
-def angular(vector_arr1, vector_arr2, digit=5):
+def angular(vector_arr1, vector_arr2):
     """ Returns the angle between vectors with the specified accuracy (default is 5) """
-    cos = cos_vectors(vector_arr1, vector_arr2, digit)
+    cos = cos_vectors(vector_arr1, vector_arr2)
     rad = math.acos(cos)
-    return round(rad / math.pi * 180, digit)
+    return rad / math.pi * 180
 
 
 def sum_vectors(vector_arr1, vector_arr2):
@@ -86,22 +87,22 @@ def div_vectors(vector_arr1, vector_arr2):
     return [vector_arr1[i] / vector_arr2[i] for i in range(len(vector_arr1))]
 
 
-def is_collinear(vector_arr1, vector_arr2, digit=5):
+def is_collinear(vector_arr1, vector_arr2, eps=EPS):
     """ Checks vectors for collinearity with the specified accuracy (default is 5) """
     ensure_types_vectors(vector_arr1, vector_arr2)
-    return abs(cos_vectors(vector_arr1, vector_arr2, digit)) == 1.0
+    return is_almost_equal(abs(cos_vectors(vector_arr1, vector_arr2)), 1, eps)
 
 
-def is_directional(vector_arr1, vector_arr2, digit=5):
+def is_directional(vector_arr1, vector_arr2, eps=EPS):
     """ Checks vectors for co-directionality with a given accuracy (default is 5) """
     ensure_types_vectors(vector_arr1, vector_arr2)
-    return cos_vectors(vector_arr1, vector_arr2, digit) == 1.0
+    return is_almost_equal(cos_vectors(vector_arr1, vector_arr2), 1, eps)
 
 
-def is_not_directional(vector_arr1, vector_arr2, digit=3):
+def is_not_directional(vector_arr1, vector_arr2, eps=EPS):
     """ Returns the orthogonality value of vectors with a given accuracy (default is 5) """
     ensure_types_vectors(vector_arr1, vector_arr2)
-    return cos_vectors(vector_arr1, vector_arr2, digit) == -1.0
+    return is_almost_equal(cos_vectors(vector_arr1, vector_arr2), -1, eps)
 
 
 def change_direction(vector_arr):
@@ -116,10 +117,10 @@ def projection(vector_arr1, vector_arr2):
     return scalar(vector_arr1, vector_arr2) / lenght(vector_arr2)
 
 
-def is_orthogonal(vector_arr1, vector_arr2, digit=5):
+def is_orthogonal(vector_arr1, vector_arr2, eps=EPS):
     """ Returns the orthogonality value of vectors with a given accuracy (default is 5) """
     ensure_types_vectors(vector_arr1, vector_arr2)
-    return cos_vectors(vector_arr1, vector_arr2, digit) == 0
+    return is_almost_equal(cos_vectors(vector_arr1, vector_arr2), 0, eps)
 
 
 def is_equal(vector_arr1, vector_arr2):

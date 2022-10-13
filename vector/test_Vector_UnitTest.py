@@ -42,7 +42,7 @@ class Tests_Vector(unittest.TestCase):
     def test_positive_cos_vectors(self):
         v1 = [-21, -64, 51, 54]
         v2 = [-93, -42, -14, 38]
-        self.assertEqual(vec.cos_vectors(v1, v2), 0.54314)
+        self.assertEqual(vec.cos_vectors(v1, v2), 0.5431396832694423)
 
     def test_negative_TypeError_cos_vectors(self):
         v1 = [-21, -64, 51, "54"]
@@ -59,7 +59,7 @@ class Tests_Vector(unittest.TestCase):
     def test_positive_angular(self):
         v1 = [51, 32, -41]
         v2 = [-48, 38, -63]
-        self.assertEqual(vec.angular(v1, v2), 77.81142)
+        self.assertEqual(vec.angular(v1, v2), 77.81148908681656)
 
     def test_positive_sum_vectors(self):
         v1 = [-77, 41, -46, -74]
