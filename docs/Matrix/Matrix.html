@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>math_func.Matrix.Matrix API documentation</title>
+<title>math_func.matrix.matrix API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
@@ -19,31 +19,32 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>math_func.Matrix.Matrix</code></h1>
+<h1 class="title">Module <code>math_func.matrix.matrix</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">import Vector.Vector as vec
-from Errors import *
+<pre><code class="python">import vector.vector as vec
+from errors import *
+from copy import deepcopy
 
 
 def sum_matrix(matrix1, matrix2):
-    &#39;&#39;&#39; Return sum of matrices &#39;&#39;&#39;
+    &#34;&#34;&#34; Return sum of matrices &#34;&#34;&#34;
     ensure_full_matrix(matrix1, matrix2)
     return [vec.sum_vectors(matrix1[IX_cell], matrix2[IX_cell]) for IX_cell in range(len(matrix1))]
 
 
 def dif_matrix(matrix1, matrix2):
-    &#39;&#39;&#39; Return difference of matrices &#39;&#39;&#39;
+    &#34;&#34;&#34; Return difference of matrices &#34;&#34;&#34;
     ensure_full_matrix(matrix1, matrix2)
     return [vec.dif_vectors(matrix1[IX_cell], matrix2[IX_cell]) for IX_cell in range(len(matrix1))]
 
 
 def transportation_matrix(matrix):
-    &#39;&#39;&#39; Transposes the matrix &#39;&#39;&#39;
+    &#34;&#34;&#34; Transposes the matrix &#34;&#34;&#34;
     ensure_types_matrix(matrix)
     return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
 
@@ -57,7 +58,7 @@ def sort_arguments(matrix1, matrix2):
 
 
 def mul_matrix(matrix1, matrix2):
-    &#39;&#39;&#39; Return multiplication of matrices or multiplying a matrix by a scalar &#39;&#39;&#39;
+    &#34;&#34;&#34; Return multiplication of matrices or multiplying a matrix by a scalar &#34;&#34;&#34;
     if vec.is_scalar(matrix1) or vec.is_scalar(matrix2):
         matrix1, scal = sort_arguments(matrix1, matrix2)
         return [vec.mul_vectors(matrix1[IX_row], scal) for IX_row in range(len(matrix1))]
@@ -75,37 +76,45 @@ def mul_matrix(matrix1, matrix2):
     return matrix_out
 
 
-def get_row(matrix, row):
-    &#39;&#39;&#39; Returns a row from the matrix by index &#39;&#39;&#39;
-    return matrix[row - 1]
+def get_row(matrix, row, do_copy=True):
+    &#34;&#34;&#34; Returns a row from the matrix by index &#34;&#34;&#34;
+    if do_copy == True:
+        return deepcopy(matrix[row])
+    return matrix[row]
 
 
-def get_column(matrix, column):
-    &#39;&#39;&#39; Returns a column from the matrix by index &#39;&#39;&#39;
-    return get_row(transportation_matrix(matrix), column)
+def get_column(matrix, column, do_copy=True):
+    &#34;&#34;&#34; Returns a column from the matrix by index &#34;&#34;&#34;
+    return get_row(transportation_matrix(matrix), column, do_copy)
 
 
-def row_switch(matrix, row1, row2):
-    &#39;&#39;&#39; Returns a matrix with permuted rows by indexes &#39;&#39;&#39;
+def row_switch(matrix, row1, row2, do_copy=True):
+    &#34;&#34;&#34; Returns a matrix with permuted rows by indexes &#34;&#34;&#34;
+    if do_copy == True:
+        matrix_copy = deepcopy(matrix)
+        matrix_copy[row1 - 1], matrix_copy[row2 - 1] = matrix_copy[row2 - 1], matrix_copy[row1 - 1]
+        return matrix_copy
     matrix[row1 - 1], matrix[row2 - 1] = matrix[row2 - 1], matrix[row1 - 1]
     return matrix
 
 
 def mul_matrix_row(matrix, row, scalar):
-    &#39;&#39;&#39; Multiplies a row from the matrix by a given index by a scalar &#39;&#39;&#39;
+    &#34;&#34;&#34; Multiplies a row from the matrix by a given index by a scalar &#34;&#34;&#34;
     ensure_types_matrix(matrix)
     matrix[row - 1] = vec.mul_vectors(matrix[row - 1], scalar)
     return matrix
 
+
 def sum_matrix_rows(matrix, row1, row2, scalar):
-    &#39;&#39;&#39; Returns the matrix in which the rows are stacked, which are multiplied by a scalar &#39;&#39;&#39;
+    &#34;&#34;&#34; Returns the matrix in which the rows are stacked, which are multiplied by a scalar &#34;&#34;&#34;
     ensure_types_matrix(matrix)
     matrix = [row for row in matrix]
     matrix[row1 - 1] = vec.sum_vectors(matrix[row1 - 1], vec.mul_vectors(get_row(matrix, row2), scalar))
     return matrix
 
+
 def dif_matrix_rows(matrix, row1, row2, scalar):
-    &#39;&#39;&#39; Returns a matrix in which the rows are subtracted, which are multiplied by a scalar &#39;&#39;&#39;
+    &#34;&#34;&#34; Returns a matrix in which the rows are subtracted, which are multiplied by a scalar &#34;&#34;&#34;
     ensure_types_matrix(matrix)
     matrix = [row for row in matrix]
     matrix[row1 - 1] = vec.dif_vectors(matrix[row1 - 1], vec.mul_vectors(get_row(matrix, row2), scalar))
@@ -119,7 +128,7 @@ def dif_matrix_rows(matrix, row1, row2, scalar):
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="math_func.Matrix.Matrix.dif_matrix"><code class="name flex">
+<dt id="math_func.matrix.matrix.dif_matrix"><code class="name flex">
 <span>def <span class="ident">dif_matrix</span></span>(<span>matrix1, matrix2)</span>
 </code></dt>
 <dd>
@@ -129,12 +138,12 @@ def dif_matrix_rows(matrix, row1, row2, scalar):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def dif_matrix(matrix1, matrix2):
-    &#39;&#39;&#39; Return difference of matrices &#39;&#39;&#39;
+    &#34;&#34;&#34; Return difference of matrices &#34;&#34;&#34;
     ensure_full_matrix(matrix1, matrix2)
     return [vec.dif_vectors(matrix1[IX_cell], matrix2[IX_cell]) for IX_cell in range(len(matrix1))]</code></pre>
 </details>
 </dd>
-<dt id="math_func.Matrix.Matrix.dif_matrix_rows"><code class="name flex">
+<dt id="math_func.matrix.matrix.dif_matrix_rows"><code class="name flex">
 <span>def <span class="ident">dif_matrix_rows</span></span>(<span>matrix, row1, row2, scalar)</span>
 </code></dt>
 <dd>
@@ -144,15 +153,15 @@ def dif_matrix_rows(matrix, row1, row2, scalar):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def dif_matrix_rows(matrix, row1, row2, scalar):
-    &#39;&#39;&#39; Returns a matrix in which the rows are subtracted, which are multiplied by a scalar &#39;&#39;&#39;
+    &#34;&#34;&#34; Returns a matrix in which the rows are subtracted, which are multiplied by a scalar &#34;&#34;&#34;
     ensure_types_matrix(matrix)
     matrix = [row for row in matrix]
     matrix[row1 - 1] = vec.dif_vectors(matrix[row1 - 1], vec.mul_vectors(get_row(matrix, row2), scalar))
     return matrix</code></pre>
 </details>
 </dd>
-<dt id="math_func.Matrix.Matrix.get_column"><code class="name flex">
-<span>def <span class="ident">get_column</span></span>(<span>matrix, column)</span>
+<dt id="math_func.matrix.matrix.get_column"><code class="name flex">
+<span>def <span class="ident">get_column</span></span>(<span>matrix, column, do_copy=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns a column from the matrix by index</p></div>
@@ -160,13 +169,13 @@ def dif_matrix_rows(matrix, row1, row2, scalar):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_column(matrix, column):
-    &#39;&#39;&#39; Returns a column from the matrix by index &#39;&#39;&#39;
-    return get_row(transportation_matrix(matrix), column)</code></pre>
+<pre><code class="python">def get_column(matrix, column, do_copy=True):
+    &#34;&#34;&#34; Returns a column from the matrix by index &#34;&#34;&#34;
+    return get_row(transportation_matrix(matrix), column, do_copy)</code></pre>
 </details>
 </dd>
-<dt id="math_func.Matrix.Matrix.get_row"><code class="name flex">
-<span>def <span class="ident">get_row</span></span>(<span>matrix, row)</span>
+<dt id="math_func.matrix.matrix.get_row"><code class="name flex">
+<span>def <span class="ident">get_row</span></span>(<span>matrix, row, do_copy=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns a row from the matrix by index</p></div>
@@ -174,12 +183,14 @@ def dif_matrix_rows(matrix, row1, row2, scalar):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def get_row(matrix, row):
-    &#39;&#39;&#39; Returns a row from the matrix by index &#39;&#39;&#39;
-    return matrix[row - 1]</code></pre>
+<pre><code class="python">def get_row(matrix, row, do_copy=True):
+    &#34;&#34;&#34; Returns a row from the matrix by index &#34;&#34;&#34;
+    if do_copy == True:
+        return deepcopy(matrix[row])
+    return matrix[row]</code></pre>
 </details>
 </dd>
-<dt id="math_func.Matrix.Matrix.mul_matrix"><code class="name flex">
+<dt id="math_func.matrix.matrix.mul_matrix"><code class="name flex">
 <span>def <span class="ident">mul_matrix</span></span>(<span>matrix1, matrix2)</span>
 </code></dt>
 <dd>
@@ -189,7 +200,7 @@ def dif_matrix_rows(matrix, row1, row2, scalar):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def mul_matrix(matrix1, matrix2):
-    &#39;&#39;&#39; Return multiplication of matrices or multiplying a matrix by a scalar &#39;&#39;&#39;
+    &#34;&#34;&#34; Return multiplication of matrices or multiplying a matrix by a scalar &#34;&#34;&#34;
     if vec.is_scalar(matrix1) or vec.is_scalar(matrix2):
         matrix1, scal = sort_arguments(matrix1, matrix2)
         return [vec.mul_vectors(matrix1[IX_row], scal) for IX_row in range(len(matrix1))]
@@ -207,7 +218,7 @@ def dif_matrix_rows(matrix, row1, row2, scalar):
     return matrix_out</code></pre>
 </details>
 </dd>
-<dt id="math_func.Matrix.Matrix.mul_matrix_row"><code class="name flex">
+<dt id="math_func.matrix.matrix.mul_matrix_row"><code class="name flex">
 <span>def <span class="ident">mul_matrix_row</span></span>(<span>matrix, row, scalar)</span>
 </code></dt>
 <dd>
@@ -217,14 +228,14 @@ def dif_matrix_rows(matrix, row1, row2, scalar):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def mul_matrix_row(matrix, row, scalar):
-    &#39;&#39;&#39; Multiplies a row from the matrix by a given index by a scalar &#39;&#39;&#39;
+    &#34;&#34;&#34; Multiplies a row from the matrix by a given index by a scalar &#34;&#34;&#34;
     ensure_types_matrix(matrix)
     matrix[row - 1] = vec.mul_vectors(matrix[row - 1], scalar)
     return matrix</code></pre>
 </details>
 </dd>
-<dt id="math_func.Matrix.Matrix.row_switch"><code class="name flex">
-<span>def <span class="ident">row_switch</span></span>(<span>matrix, row1, row2)</span>
+<dt id="math_func.matrix.matrix.row_switch"><code class="name flex">
+<span>def <span class="ident">row_switch</span></span>(<span>matrix, row1, row2, do_copy=True)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Returns a matrix with permuted rows by indexes</p></div>
@@ -232,13 +243,17 @@ def dif_matrix_rows(matrix, row1, row2, scalar):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def row_switch(matrix, row1, row2):
-    &#39;&#39;&#39; Returns a matrix with permuted rows by indexes &#39;&#39;&#39;
+<pre><code class="python">def row_switch(matrix, row1, row2, do_copy=True):
+    &#34;&#34;&#34; Returns a matrix with permuted rows by indexes &#34;&#34;&#34;
+    if do_copy == True:
+        matrix_copy = deepcopy(matrix)
+        matrix_copy[row1 - 1], matrix_copy[row2 - 1] = matrix_copy[row2 - 1], matrix_copy[row1 - 1]
+        return matrix_copy
     matrix[row1 - 1], matrix[row2 - 1] = matrix[row2 - 1], matrix[row1 - 1]
     return matrix</code></pre>
 </details>
 </dd>
-<dt id="math_func.Matrix.Matrix.sort_arguments"><code class="name flex">
+<dt id="math_func.matrix.matrix.sort_arguments"><code class="name flex">
 <span>def <span class="ident">sort_arguments</span></span>(<span>matrix1, matrix2)</span>
 </code></dt>
 <dd>
@@ -255,7 +270,7 @@ def dif_matrix_rows(matrix, row1, row2, scalar):
     return matrix1, matrix2</code></pre>
 </details>
 </dd>
-<dt id="math_func.Matrix.Matrix.sum_matrix"><code class="name flex">
+<dt id="math_func.matrix.matrix.sum_matrix"><code class="name flex">
 <span>def <span class="ident">sum_matrix</span></span>(<span>matrix1, matrix2)</span>
 </code></dt>
 <dd>
@@ -265,12 +280,12 @@ def dif_matrix_rows(matrix, row1, row2, scalar):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def sum_matrix(matrix1, matrix2):
-    &#39;&#39;&#39; Return sum of matrices &#39;&#39;&#39;
+    &#34;&#34;&#34; Return sum of matrices &#34;&#34;&#34;
     ensure_full_matrix(matrix1, matrix2)
     return [vec.sum_vectors(matrix1[IX_cell], matrix2[IX_cell]) for IX_cell in range(len(matrix1))]</code></pre>
 </details>
 </dd>
-<dt id="math_func.Matrix.Matrix.sum_matrix_rows"><code class="name flex">
+<dt id="math_func.matrix.matrix.sum_matrix_rows"><code class="name flex">
 <span>def <span class="ident">sum_matrix_rows</span></span>(<span>matrix, row1, row2, scalar)</span>
 </code></dt>
 <dd>
@@ -280,14 +295,14 @@ def dif_matrix_rows(matrix, row1, row2, scalar):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def sum_matrix_rows(matrix, row1, row2, scalar):
-    &#39;&#39;&#39; Returns the matrix in which the rows are stacked, which are multiplied by a scalar &#39;&#39;&#39;
+    &#34;&#34;&#34; Returns the matrix in which the rows are stacked, which are multiplied by a scalar &#34;&#34;&#34;
     ensure_types_matrix(matrix)
     matrix = [row for row in matrix]
     matrix[row1 - 1] = vec.sum_vectors(matrix[row1 - 1], vec.mul_vectors(get_row(matrix, row2), scalar))
     return matrix</code></pre>
 </details>
 </dd>
-<dt id="math_func.Matrix.Matrix.transportation_matrix"><code class="name flex">
+<dt id="math_func.matrix.matrix.transportation_matrix"><code class="name flex">
 <span>def <span class="ident">transportation_matrix</span></span>(<span>matrix)</span>
 </code></dt>
 <dd>
@@ -297,7 +312,7 @@ def dif_matrix_rows(matrix, row1, row2, scalar):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def transportation_matrix(matrix):
-    &#39;&#39;&#39; Transposes the matrix &#39;&#39;&#39;
+    &#34;&#34;&#34; Transposes the matrix &#34;&#34;&#34;
     ensure_types_matrix(matrix)
     return [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]</code></pre>
 </details>
@@ -315,22 +330,22 @@ def dif_matrix_rows(matrix, row1, row2, scalar):
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="math_func.Matrix" href="index.html">math_func.Matrix</a></code></li>
+<li><code><a title="math_func.matrix" href="index.html">math_func.matrix</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="math_func.Matrix.Matrix.dif_matrix" href="#math_func.Matrix.Matrix.dif_matrix">dif_matrix</a></code></li>
-<li><code><a title="math_func.Matrix.Matrix.dif_matrix_rows" href="#math_func.Matrix.Matrix.dif_matrix_rows">dif_matrix_rows</a></code></li>
-<li><code><a title="math_func.Matrix.Matrix.get_column" href="#math_func.Matrix.Matrix.get_column">get_column</a></code></li>
-<li><code><a title="math_func.Matrix.Matrix.get_row" href="#math_func.Matrix.Matrix.get_row">get_row</a></code></li>
-<li><code><a title="math_func.Matrix.Matrix.mul_matrix" href="#math_func.Matrix.Matrix.mul_matrix">mul_matrix</a></code></li>
-<li><code><a title="math_func.Matrix.Matrix.mul_matrix_row" href="#math_func.Matrix.Matrix.mul_matrix_row">mul_matrix_row</a></code></li>
-<li><code><a title="math_func.Matrix.Matrix.row_switch" href="#math_func.Matrix.Matrix.row_switch">row_switch</a></code></li>
-<li><code><a title="math_func.Matrix.Matrix.sort_arguments" href="#math_func.Matrix.Matrix.sort_arguments">sort_arguments</a></code></li>
-<li><code><a title="math_func.Matrix.Matrix.sum_matrix" href="#math_func.Matrix.Matrix.sum_matrix">sum_matrix</a></code></li>
-<li><code><a title="math_func.Matrix.Matrix.sum_matrix_rows" href="#math_func.Matrix.Matrix.sum_matrix_rows">sum_matrix_rows</a></code></li>
-<li><code><a title="math_func.Matrix.Matrix.transportation_matrix" href="#math_func.Matrix.Matrix.transportation_matrix">transportation_matrix</a></code></li>
+<li><code><a title="math_func.matrix.matrix.dif_matrix" href="#math_func.matrix.matrix.dif_matrix">dif_matrix</a></code></li>
+<li><code><a title="math_func.matrix.matrix.dif_matrix_rows" href="#math_func.matrix.matrix.dif_matrix_rows">dif_matrix_rows</a></code></li>
+<li><code><a title="math_func.matrix.matrix.get_column" href="#math_func.matrix.matrix.get_column">get_column</a></code></li>
+<li><code><a title="math_func.matrix.matrix.get_row" href="#math_func.matrix.matrix.get_row">get_row</a></code></li>
+<li><code><a title="math_func.matrix.matrix.mul_matrix" href="#math_func.matrix.matrix.mul_matrix">mul_matrix</a></code></li>
+<li><code><a title="math_func.matrix.matrix.mul_matrix_row" href="#math_func.matrix.matrix.mul_matrix_row">mul_matrix_row</a></code></li>
+<li><code><a title="math_func.matrix.matrix.row_switch" href="#math_func.matrix.matrix.row_switch">row_switch</a></code></li>
+<li><code><a title="math_func.matrix.matrix.sort_arguments" href="#math_func.matrix.matrix.sort_arguments">sort_arguments</a></code></li>
+<li><code><a title="math_func.matrix.matrix.sum_matrix" href="#math_func.matrix.matrix.sum_matrix">sum_matrix</a></code></li>
+<li><code><a title="math_func.matrix.matrix.sum_matrix_rows" href="#math_func.matrix.matrix.sum_matrix_rows">sum_matrix_rows</a></code></li>
+<li><code><a title="math_func.matrix.matrix.transportation_matrix" href="#math_func.matrix.matrix.transportation_matrix">transportation_matrix</a></code></li>
 </ul>
 </li>
 </ul>

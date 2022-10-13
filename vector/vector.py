@@ -33,13 +33,13 @@ def normalize(vector_arr):
 
 
 def cos_vectors(vector_arr1, vector_arr2):
-    """ Return the cos value between two vectors with the specified accuracy (default is 5) """
+    """ Return the cos value between two vectors """
     ensure_full_vector(vector_arr1, vector_arr2)
     return scalar(vector_arr1, vector_arr2) / (lenght(vector_arr1) * lenght(vector_arr2))
 
 
 def angular(vector_arr1, vector_arr2):
-    """ Returns the angle between vectors with the specified accuracy (default is 5) """
+    """ Returns the angle between vectors """
     cos = cos_vectors(vector_arr1, vector_arr2)
     rad = math.acos(cos)
     return rad / math.pi * 180
@@ -88,19 +88,19 @@ def div_vectors(vector_arr1, vector_arr2):
 
 
 def is_collinear(vector_arr1, vector_arr2, eps=EPS):
-    """ Checks vectors for collinearity with the specified accuracy (default is 5) """
+    """ Checks vectors for collinearity """
     ensure_types_vectors(vector_arr1, vector_arr2)
     return is_almost_equal(abs(cos_vectors(vector_arr1, vector_arr2)), 1, eps)
 
 
 def is_directional(vector_arr1, vector_arr2, eps=EPS):
-    """ Checks vectors for co-directionality with a given accuracy (default is 5) """
+    """ Checks vectors for co-directionality """
     ensure_types_vectors(vector_arr1, vector_arr2)
     return is_almost_equal(cos_vectors(vector_arr1, vector_arr2), 1, eps)
 
 
 def is_not_directional(vector_arr1, vector_arr2, eps=EPS):
-    """ Returns the orthogonality value of vectors with a given accuracy (default is 5) """
+    """ Checks vectors for lack of co-directionality """
     ensure_types_vectors(vector_arr1, vector_arr2)
     return is_almost_equal(cos_vectors(vector_arr1, vector_arr2), -1, eps)
 
@@ -118,13 +118,13 @@ def projection(vector_arr1, vector_arr2):
 
 
 def is_orthogonal(vector_arr1, vector_arr2, eps=EPS):
-    """ Returns the orthogonality value of vectors with a given accuracy (default is 5) """
+    """ Checks vectors for orthogonality """
     ensure_types_vectors(vector_arr1, vector_arr2)
     return is_almost_equal(cos_vectors(vector_arr1, vector_arr2), 0, eps)
 
 
 def is_equal(vector_arr1, vector_arr2):
-    """Check two vectors for equality"""
+    """ Check two vectors for equality """
     ensure_full_vector(vector_arr1, vector_arr2)
     if lenght(vector_arr1) == lenght(vector_arr2) and is_collinear(vector_arr1, vector_arr2) and is_directional(
             vector_arr1, vector_arr2):

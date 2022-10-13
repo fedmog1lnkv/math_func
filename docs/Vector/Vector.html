@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>math_func.Vector.Vector API documentation</title>
+<title>math_func.vector.vector API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
@@ -19,7 +19,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>math_func.Vector.Vector</code></h1>
+<h1 class="title">Module <code>math_func.vector.vector</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
@@ -27,16 +27,17 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">import math
-from Errors import *
+from errors import *
+
+EPS = 1e-10
 
 
-def after_comma(number, digit=0):
-    &#39;&#39;&#39; Number of decimal places &#39;&#39;&#39;
-    return round(number, digit)
+def is_almost_equal(a, b, eps=EPS):
+    return abs(a - b) &lt;= eps
 
 
 def lenght(vector_arr):
-    &#39;&#39;&#39; Returns the length of the vector &#39;&#39;&#39;
+    &#34;&#34;&#34; Returns the length of the vector &#34;&#34;&#34;
     ensure_types_vector(vector_arr)
     trunk = 0
     for coord in vector_arr:
@@ -45,7 +46,7 @@ def lenght(vector_arr):
 
 
 def scalar(vector_arr1, vector_arr2):
-    &#39;&#39;&#39; Returns the scalar product of vectors &#39;&#39;&#39;
+    &#34;&#34;&#34; Returns the scalar product of vectors &#34;&#34;&#34;
     ensure_full_vector(vector_arr1, vector_arr2)
     trunk = 0
     for i in range(len(vector_arr1)):
@@ -54,33 +55,32 @@ def scalar(vector_arr1, vector_arr2):
 
 
 def normalize(vector_arr):
-    &#39;&#39;&#39; Returns a normalized vector &#39;&#39;&#39;
+    &#34;&#34;&#34; Returns a normalized vector &#34;&#34;&#34;
     ensure_types_vector(vector_arr)
     return [i / lenght(vector_arr) for i in vector_arr]
 
 
-def cos_vectors(vector_arr1, vector_arr2, digit=5):
-    &#39;&#39;&#39; Return the cos value between two vectors with the specified accuracy (default is 5) &#39;&#39;&#39;
+def cos_vectors(vector_arr1, vector_arr2):
+    &#34;&#34;&#34; Return the cos value between two vectors &#34;&#34;&#34;
     ensure_full_vector(vector_arr1, vector_arr2)
-    return after_comma(scalar(vector_arr1, vector_arr2) / (lenght(vector_arr1) * lenght(vector_arr2)), digit)
+    return scalar(vector_arr1, vector_arr2) / (lenght(vector_arr1) * lenght(vector_arr2))
 
 
-def angular(vector_arr1, vector_arr2, digit=5):
-    &#39;&#39;&#39; Returns the angle between vectors with the specified accuracy (default is 5) &#39;&#39;&#39;
-    ensure_full_vector(vector_arr1, vector_arr2)
-    cos = cos_vectors(vector_arr1, vector_arr2, digit)
+def angular(vector_arr1, vector_arr2):
+    &#34;&#34;&#34; Returns the angle between vectors &#34;&#34;&#34;
+    cos = cos_vectors(vector_arr1, vector_arr2)
     rad = math.acos(cos)
-    return round(rad / math.pi * 180, digit)
+    return rad / math.pi * 180
 
 
 def sum_vectors(vector_arr1, vector_arr2):
-    &#39;&#39;&#39; Return sum of vectors &#39;&#39;&#39;
+    &#34;&#34;&#34; Return sum of vectors &#34;&#34;&#34;
     ensure_full_vector(vector_arr1, vector_arr2)
     return [vector_arr1[i] + vector_arr2[i] for i in range(len(vector_arr1))]
 
 
 def dif_vectors(vector_arr1, vector_arr2):
-    &#39;&#39;&#39; Return difference of vectors &#39;&#39;&#39;
+    &#34;&#34;&#34; Return difference of vectors &#34;&#34;&#34;
     ensure_full_vector(vector_arr1, vector_arr2)
     return [vector_arr1[i] - vector_arr2[i] for i in range(len(vector_arr1))]
 
@@ -98,7 +98,7 @@ def sort_arguments(vector_arr1, vector_arr2):
 
 
 def mul_vectors(vector_arr1, vector_arr2):
-    &#39;&#39;&#39; Return multiplication of vectors or multiplying a vector by a scalar &#39;&#39;&#39;
+    &#34;&#34;&#34; Return multiplication of vectors or multiplying a vector by a scalar &#34;&#34;&#34;
     if is_scalar(vector_arr1) or is_scalar(vector_arr2):
         vector_arr1, scal = sort_arguments(vector_arr1, vector_arr2)
         return [vector_arr1[i] * scal for i in range(len(vector_arr1))]
@@ -107,7 +107,7 @@ def mul_vectors(vector_arr1, vector_arr2):
 
 
 def div_vectors(vector_arr1, vector_arr2):
-    &#39;&#39;&#39; Return division of vectors or dividing a vector by a scalar &#39;&#39;&#39;
+    &#34;&#34;&#34; Return division of vectors or dividing a vector by a scalar &#34;&#34;&#34;
     if is_scalar(vector_arr1) or is_scalar(vector_arr2):
         vector_arr1, scal = sort_arguments(vector_arr1, vector_arr2)
         return [vector_arr1[i] / scal for i in range(len(vector_arr1))]
@@ -115,49 +115,49 @@ def div_vectors(vector_arr1, vector_arr2):
     return [vector_arr1[i] / vector_arr2[i] for i in range(len(vector_arr1))]
 
 
-def is_collinear(vector_arr1, vector_arr2, digit=5):
-    &#39;&#39;&#39; Checks vectors for collinearity with the specified accuracy (default is 5) &#39;&#39;&#39;
+def is_collinear(vector_arr1, vector_arr2, eps=EPS):
+    &#34;&#34;&#34; Checks vectors for collinearity &#34;&#34;&#34;
     ensure_types_vectors(vector_arr1, vector_arr2)
-    return abs(cos_vectors(vector_arr1, vector_arr2, digit)) == 1.0
+    return is_almost_equal(abs(cos_vectors(vector_arr1, vector_arr2)), 1, eps)
 
 
-def is_directional(vector_arr1, vector_arr2, digit=5):
-    &#39;&#39;&#39; Checks vectors for co-directionality with a given accuracy (default is 5) &#39;&#39;&#39;
+def is_directional(vector_arr1, vector_arr2, eps=EPS):
+    &#34;&#34;&#34; Checks vectors for co-directionality &#34;&#34;&#34;
     ensure_types_vectors(vector_arr1, vector_arr2)
-    return cos_vectors(vector_arr1, vector_arr2, digit) == 1.0
+    return is_almost_equal(cos_vectors(vector_arr1, vector_arr2), 1, eps)
 
 
-def is_not_directional(vector_arr1, vector_arr2, digit=3):
-    &#39;&#39;&#39; Returns the orthogonality value of vectors with a given accuracy (default is 5) &#39;&#39;&#39;
+def is_not_directional(vector_arr1, vector_arr2, eps=EPS):
+    &#34;&#34;&#34; Checks vectors for lack of co-directionality &#34;&#34;&#34;
     ensure_types_vectors(vector_arr1, vector_arr2)
-    return cos_vectors(vector_arr1, vector_arr2, digit) == -1.0
+    return is_almost_equal(cos_vectors(vector_arr1, vector_arr2), -1, eps)
 
 
 def change_direction(vector_arr):
-    &#39;&#39;&#39; Changes the direction of the vector &#39;&#39;&#39;
+    &#34;&#34;&#34; Changes the direction of the vector &#34;&#34;&#34;
     ensure_types_vector(vector_arr)
     return [vector_arr[i] * -1 for i in range(len(vector_arr))]
 
 
 def projection(vector_arr1, vector_arr2):
-    &#39;&#39;&#39; Returns the projection of a vector onto a vector &#39;&#39;&#39;
+    &#34;&#34;&#34; Returns the projection of a vector onto a vector &#34;&#34;&#34;
     ensure_types_vectors(vector_arr1, vector_arr2)
     return scalar(vector_arr1, vector_arr2) / lenght(vector_arr2)
 
 
-def is_orthogonal(vector_arr1, vector_arr2, digit=5):
-    &#39;&#39;&#39; Returns the orthogonality value of vectors with a given accuracy (default is 5) &#39;&#39;&#39;
+def is_orthogonal(vector_arr1, vector_arr2, eps=EPS):
+    &#34;&#34;&#34; Checks vectors for orthogonality &#34;&#34;&#34;
     ensure_types_vectors(vector_arr1, vector_arr2)
-    return cos_vectors(vector_arr1, vector_arr2, digit) == 0
+    return is_almost_equal(cos_vectors(vector_arr1, vector_arr2), 0, eps)
 
 
-def is_equal(vector_arr1, vector_arr2, digit=0):
-    &#34;&#34;&#34;Check two vectors for equality&#34;&#34;&#34;
+def is_equal(vector_arr1, vector_arr2):
+    &#34;&#34;&#34; Check two vectors for equality &#34;&#34;&#34;
     ensure_full_vector(vector_arr1, vector_arr2)
-    for i in range(len(vector_arr1)):
-        if vector_arr1[i] - vector_arr2[i] &gt; 0 + digit:
-            return False
-    return True</code></pre>
+    if lenght(vector_arr1) == lenght(vector_arr2) and is_collinear(vector_arr1, vector_arr2) and is_directional(
+            vector_arr1, vector_arr2):
+        return True
+    return False</code></pre>
 </details>
 </section>
 <section>
@@ -167,38 +167,23 @@ def is_equal(vector_arr1, vector_arr2, digit=0):
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="math_func.Vector.Vector.after_comma"><code class="name flex">
-<span>def <span class="ident">after_comma</span></span>(<span>number, digit=0)</span>
+<dt id="math_func.vector.vector.angular"><code class="name flex">
+<span>def <span class="ident">angular</span></span>(<span>vector_arr1, vector_arr2)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Number of decimal places</p></div>
+<div class="desc"><p>Returns the angle between vectors</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def after_comma(number, digit=0):
-    &#39;&#39;&#39; Number of decimal places &#39;&#39;&#39;
-    return round(number, digit)</code></pre>
-</details>
-</dd>
-<dt id="math_func.Vector.Vector.angular"><code class="name flex">
-<span>def <span class="ident">angular</span></span>(<span>vector_arr1, vector_arr2, digit=5)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Returns the angle between vectors with the specified accuracy (default is 5)</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def angular(vector_arr1, vector_arr2, digit=5):
-    &#39;&#39;&#39; Returns the angle between vectors with the specified accuracy (default is 5) &#39;&#39;&#39;
-    ensure_full_vector(vector_arr1, vector_arr2)
-    cos = cos_vectors(vector_arr1, vector_arr2, digit)
+<pre><code class="python">def angular(vector_arr1, vector_arr2):
+    &#34;&#34;&#34; Returns the angle between vectors &#34;&#34;&#34;
+    cos = cos_vectors(vector_arr1, vector_arr2)
     rad = math.acos(cos)
-    return round(rad / math.pi * 180, digit)</code></pre>
+    return rad / math.pi * 180</code></pre>
 </details>
 </dd>
-<dt id="math_func.Vector.Vector.change_direction"><code class="name flex">
+<dt id="math_func.vector.vector.change_direction"><code class="name flex">
 <span>def <span class="ident">change_direction</span></span>(<span>vector_arr)</span>
 </code></dt>
 <dd>
@@ -208,27 +193,27 @@ def is_equal(vector_arr1, vector_arr2, digit=0):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def change_direction(vector_arr):
-    &#39;&#39;&#39; Changes the direction of the vector &#39;&#39;&#39;
+    &#34;&#34;&#34; Changes the direction of the vector &#34;&#34;&#34;
     ensure_types_vector(vector_arr)
     return [vector_arr[i] * -1 for i in range(len(vector_arr))]</code></pre>
 </details>
 </dd>
-<dt id="math_func.Vector.Vector.cos_vectors"><code class="name flex">
-<span>def <span class="ident">cos_vectors</span></span>(<span>vector_arr1, vector_arr2, digit=5)</span>
+<dt id="math_func.vector.vector.cos_vectors"><code class="name flex">
+<span>def <span class="ident">cos_vectors</span></span>(<span>vector_arr1, vector_arr2)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Return the cos value between two vectors with the specified accuracy (default is 5)</p></div>
+<div class="desc"><p>Return the cos value between two vectors</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def cos_vectors(vector_arr1, vector_arr2, digit=5):
-    &#39;&#39;&#39; Return the cos value between two vectors with the specified accuracy (default is 5) &#39;&#39;&#39;
+<pre><code class="python">def cos_vectors(vector_arr1, vector_arr2):
+    &#34;&#34;&#34; Return the cos value between two vectors &#34;&#34;&#34;
     ensure_full_vector(vector_arr1, vector_arr2)
-    return after_comma(scalar(vector_arr1, vector_arr2) / (lenght(vector_arr1) * lenght(vector_arr2)), digit)</code></pre>
+    return scalar(vector_arr1, vector_arr2) / (lenght(vector_arr1) * lenght(vector_arr2))</code></pre>
 </details>
 </dd>
-<dt id="math_func.Vector.Vector.dif_vectors"><code class="name flex">
+<dt id="math_func.vector.vector.dif_vectors"><code class="name flex">
 <span>def <span class="ident">dif_vectors</span></span>(<span>vector_arr1, vector_arr2)</span>
 </code></dt>
 <dd>
@@ -238,12 +223,12 @@ def is_equal(vector_arr1, vector_arr2, digit=0):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def dif_vectors(vector_arr1, vector_arr2):
-    &#39;&#39;&#39; Return difference of vectors &#39;&#39;&#39;
+    &#34;&#34;&#34; Return difference of vectors &#34;&#34;&#34;
     ensure_full_vector(vector_arr1, vector_arr2)
     return [vector_arr1[i] - vector_arr2[i] for i in range(len(vector_arr1))]</code></pre>
 </details>
 </dd>
-<dt id="math_func.Vector.Vector.div_vectors"><code class="name flex">
+<dt id="math_func.vector.vector.div_vectors"><code class="name flex">
 <span>def <span class="ident">div_vectors</span></span>(<span>vector_arr1, vector_arr2)</span>
 </code></dt>
 <dd>
@@ -253,7 +238,7 @@ def is_equal(vector_arr1, vector_arr2, digit=0):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def div_vectors(vector_arr1, vector_arr2):
-    &#39;&#39;&#39; Return division of vectors or dividing a vector by a scalar &#39;&#39;&#39;
+    &#34;&#34;&#34; Return division of vectors or dividing a vector by a scalar &#34;&#34;&#34;
     if is_scalar(vector_arr1) or is_scalar(vector_arr2):
         vector_arr1, scal = sort_arguments(vector_arr1, vector_arr2)
         return [vector_arr1[i] / scal for i in range(len(vector_arr1))]
@@ -261,38 +246,51 @@ def is_equal(vector_arr1, vector_arr2, digit=0):
     return [vector_arr1[i] / vector_arr2[i] for i in range(len(vector_arr1))]</code></pre>
 </details>
 </dd>
-<dt id="math_func.Vector.Vector.is_collinear"><code class="name flex">
-<span>def <span class="ident">is_collinear</span></span>(<span>vector_arr1, vector_arr2, digit=5)</span>
+<dt id="math_func.vector.vector.is_almost_equal"><code class="name flex">
+<span>def <span class="ident">is_almost_equal</span></span>(<span>a, b, eps=1e-10)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Checks vectors for collinearity with the specified accuracy (default is 5)</p></div>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def is_collinear(vector_arr1, vector_arr2, digit=5):
-    &#39;&#39;&#39; Checks vectors for collinearity with the specified accuracy (default is 5) &#39;&#39;&#39;
-    ensure_types_vectors(vector_arr1, vector_arr2)
-    return abs(cos_vectors(vector_arr1, vector_arr2, digit)) == 1.0</code></pre>
+<pre><code class="python">def is_almost_equal(a, b, eps=EPS):
+    return abs(a - b) &lt;= eps</code></pre>
 </details>
 </dd>
-<dt id="math_func.Vector.Vector.is_directional"><code class="name flex">
-<span>def <span class="ident">is_directional</span></span>(<span>vector_arr1, vector_arr2, digit=5)</span>
+<dt id="math_func.vector.vector.is_collinear"><code class="name flex">
+<span>def <span class="ident">is_collinear</span></span>(<span>vector_arr1, vector_arr2, eps=1e-10)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Checks vectors for co-directionality with a given accuracy (default is 5)</p></div>
+<div class="desc"><p>Checks vectors for collinearity</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def is_directional(vector_arr1, vector_arr2, digit=5):
-    &#39;&#39;&#39; Checks vectors for co-directionality with a given accuracy (default is 5) &#39;&#39;&#39;
+<pre><code class="python">def is_collinear(vector_arr1, vector_arr2, eps=EPS):
+    &#34;&#34;&#34; Checks vectors for collinearity &#34;&#34;&#34;
     ensure_types_vectors(vector_arr1, vector_arr2)
-    return cos_vectors(vector_arr1, vector_arr2, digit) == 1.0</code></pre>
+    return is_almost_equal(abs(cos_vectors(vector_arr1, vector_arr2)), 1, eps)</code></pre>
 </details>
 </dd>
-<dt id="math_func.Vector.Vector.is_equal"><code class="name flex">
-<span>def <span class="ident">is_equal</span></span>(<span>vector_arr1, vector_arr2, digit=0)</span>
+<dt id="math_func.vector.vector.is_directional"><code class="name flex">
+<span>def <span class="ident">is_directional</span></span>(<span>vector_arr1, vector_arr2, eps=1e-10)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks vectors for co-directionality</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_directional(vector_arr1, vector_arr2, eps=EPS):
+    &#34;&#34;&#34; Checks vectors for co-directionality &#34;&#34;&#34;
+    ensure_types_vectors(vector_arr1, vector_arr2)
+    return is_almost_equal(cos_vectors(vector_arr1, vector_arr2), 1, eps)</code></pre>
+</details>
+</dd>
+<dt id="math_func.vector.vector.is_equal"><code class="name flex">
+<span>def <span class="ident">is_equal</span></span>(<span>vector_arr1, vector_arr2)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Check two vectors for equality</p></div>
@@ -300,46 +298,46 @@ def is_equal(vector_arr1, vector_arr2, digit=0):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def is_equal(vector_arr1, vector_arr2, digit=0):
-    &#34;&#34;&#34;Check two vectors for equality&#34;&#34;&#34;
+<pre><code class="python">def is_equal(vector_arr1, vector_arr2):
+    &#34;&#34;&#34; Check two vectors for equality &#34;&#34;&#34;
     ensure_full_vector(vector_arr1, vector_arr2)
-    for i in range(len(vector_arr1)):
-        if vector_arr1[i] - vector_arr2[i] &gt; 0 + digit:
-            return False
-    return True</code></pre>
+    if lenght(vector_arr1) == lenght(vector_arr2) and is_collinear(vector_arr1, vector_arr2) and is_directional(
+            vector_arr1, vector_arr2):
+        return True
+    return False</code></pre>
 </details>
 </dd>
-<dt id="math_func.Vector.Vector.is_not_directional"><code class="name flex">
-<span>def <span class="ident">is_not_directional</span></span>(<span>vector_arr1, vector_arr2, digit=3)</span>
+<dt id="math_func.vector.vector.is_not_directional"><code class="name flex">
+<span>def <span class="ident">is_not_directional</span></span>(<span>vector_arr1, vector_arr2, eps=1e-10)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Returns the orthogonality value of vectors with a given accuracy (default is 5)</p></div>
+<div class="desc"><p>Checks vectors for lack of co-directionality</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def is_not_directional(vector_arr1, vector_arr2, digit=3):
-    &#39;&#39;&#39; Returns the orthogonality value of vectors with a given accuracy (default is 5) &#39;&#39;&#39;
+<pre><code class="python">def is_not_directional(vector_arr1, vector_arr2, eps=EPS):
+    &#34;&#34;&#34; Checks vectors for lack of co-directionality &#34;&#34;&#34;
     ensure_types_vectors(vector_arr1, vector_arr2)
-    return cos_vectors(vector_arr1, vector_arr2, digit) == -1.0</code></pre>
+    return is_almost_equal(cos_vectors(vector_arr1, vector_arr2), -1, eps)</code></pre>
 </details>
 </dd>
-<dt id="math_func.Vector.Vector.is_orthogonal"><code class="name flex">
-<span>def <span class="ident">is_orthogonal</span></span>(<span>vector_arr1, vector_arr2, digit=5)</span>
+<dt id="math_func.vector.vector.is_orthogonal"><code class="name flex">
+<span>def <span class="ident">is_orthogonal</span></span>(<span>vector_arr1, vector_arr2, eps=1e-10)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Returns the orthogonality value of vectors with a given accuracy (default is 5)</p></div>
+<div class="desc"><p>Checks vectors for orthogonality</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def is_orthogonal(vector_arr1, vector_arr2, digit=5):
-    &#39;&#39;&#39; Returns the orthogonality value of vectors with a given accuracy (default is 5) &#39;&#39;&#39;
+<pre><code class="python">def is_orthogonal(vector_arr1, vector_arr2, eps=EPS):
+    &#34;&#34;&#34; Checks vectors for orthogonality &#34;&#34;&#34;
     ensure_types_vectors(vector_arr1, vector_arr2)
-    return cos_vectors(vector_arr1, vector_arr2, digit) == 0</code></pre>
+    return is_almost_equal(cos_vectors(vector_arr1, vector_arr2), 0, eps)</code></pre>
 </details>
 </dd>
-<dt id="math_func.Vector.Vector.is_scalar"><code class="name flex">
+<dt id="math_func.vector.vector.is_scalar"><code class="name flex">
 <span>def <span class="ident">is_scalar</span></span>(<span>vector_arr)</span>
 </code></dt>
 <dd>
@@ -352,7 +350,7 @@ def is_equal(vector_arr1, vector_arr2, digit=0):
     return type(vector_arr) == int or type(vector_arr) == float</code></pre>
 </details>
 </dd>
-<dt id="math_func.Vector.Vector.lenght"><code class="name flex">
+<dt id="math_func.vector.vector.lenght"><code class="name flex">
 <span>def <span class="ident">lenght</span></span>(<span>vector_arr)</span>
 </code></dt>
 <dd>
@@ -362,7 +360,7 @@ def is_equal(vector_arr1, vector_arr2, digit=0):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def lenght(vector_arr):
-    &#39;&#39;&#39; Returns the length of the vector &#39;&#39;&#39;
+    &#34;&#34;&#34; Returns the length of the vector &#34;&#34;&#34;
     ensure_types_vector(vector_arr)
     trunk = 0
     for coord in vector_arr:
@@ -370,7 +368,7 @@ def is_equal(vector_arr1, vector_arr2, digit=0):
     return trunk ** (1 / 2)</code></pre>
 </details>
 </dd>
-<dt id="math_func.Vector.Vector.mul_vectors"><code class="name flex">
+<dt id="math_func.vector.vector.mul_vectors"><code class="name flex">
 <span>def <span class="ident">mul_vectors</span></span>(<span>vector_arr1, vector_arr2)</span>
 </code></dt>
 <dd>
@@ -380,7 +378,7 @@ def is_equal(vector_arr1, vector_arr2, digit=0):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def mul_vectors(vector_arr1, vector_arr2):
-    &#39;&#39;&#39; Return multiplication of vectors or multiplying a vector by a scalar &#39;&#39;&#39;
+    &#34;&#34;&#34; Return multiplication of vectors or multiplying a vector by a scalar &#34;&#34;&#34;
     if is_scalar(vector_arr1) or is_scalar(vector_arr2):
         vector_arr1, scal = sort_arguments(vector_arr1, vector_arr2)
         return [vector_arr1[i] * scal for i in range(len(vector_arr1))]
@@ -388,7 +386,7 @@ def is_equal(vector_arr1, vector_arr2, digit=0):
     return [vector_arr1[i] * vector_arr2[i] for i in range(len(vector_arr1))]</code></pre>
 </details>
 </dd>
-<dt id="math_func.Vector.Vector.normalize"><code class="name flex">
+<dt id="math_func.vector.vector.normalize"><code class="name flex">
 <span>def <span class="ident">normalize</span></span>(<span>vector_arr)</span>
 </code></dt>
 <dd>
@@ -398,12 +396,12 @@ def is_equal(vector_arr1, vector_arr2, digit=0):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def normalize(vector_arr):
-    &#39;&#39;&#39; Returns a normalized vector &#39;&#39;&#39;
+    &#34;&#34;&#34; Returns a normalized vector &#34;&#34;&#34;
     ensure_types_vector(vector_arr)
     return [i / lenght(vector_arr) for i in vector_arr]</code></pre>
 </details>
 </dd>
-<dt id="math_func.Vector.Vector.projection"><code class="name flex">
+<dt id="math_func.vector.vector.projection"><code class="name flex">
 <span>def <span class="ident">projection</span></span>(<span>vector_arr1, vector_arr2)</span>
 </code></dt>
 <dd>
@@ -413,12 +411,12 @@ def is_equal(vector_arr1, vector_arr2, digit=0):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def projection(vector_arr1, vector_arr2):
-    &#39;&#39;&#39; Returns the projection of a vector onto a vector &#39;&#39;&#39;
+    &#34;&#34;&#34; Returns the projection of a vector onto a vector &#34;&#34;&#34;
     ensure_types_vectors(vector_arr1, vector_arr2)
     return scalar(vector_arr1, vector_arr2) / lenght(vector_arr2)</code></pre>
 </details>
 </dd>
-<dt id="math_func.Vector.Vector.scalar"><code class="name flex">
+<dt id="math_func.vector.vector.scalar"><code class="name flex">
 <span>def <span class="ident">scalar</span></span>(<span>vector_arr1, vector_arr2)</span>
 </code></dt>
 <dd>
@@ -428,7 +426,7 @@ def is_equal(vector_arr1, vector_arr2, digit=0):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def scalar(vector_arr1, vector_arr2):
-    &#39;&#39;&#39; Returns the scalar product of vectors &#39;&#39;&#39;
+    &#34;&#34;&#34; Returns the scalar product of vectors &#34;&#34;&#34;
     ensure_full_vector(vector_arr1, vector_arr2)
     trunk = 0
     for i in range(len(vector_arr1)):
@@ -436,7 +434,7 @@ def is_equal(vector_arr1, vector_arr2, digit=0):
     return trunk</code></pre>
 </details>
 </dd>
-<dt id="math_func.Vector.Vector.sort_arguments"><code class="name flex">
+<dt id="math_func.vector.vector.sort_arguments"><code class="name flex">
 <span>def <span class="ident">sort_arguments</span></span>(<span>vector_arr1, vector_arr2)</span>
 </code></dt>
 <dd>
@@ -453,7 +451,7 @@ def is_equal(vector_arr1, vector_arr2, digit=0):
     return vector_arr1, vector_arr2</code></pre>
 </details>
 </dd>
-<dt id="math_func.Vector.Vector.sum_vectors"><code class="name flex">
+<dt id="math_func.vector.vector.sum_vectors"><code class="name flex">
 <span>def <span class="ident">sum_vectors</span></span>(<span>vector_arr1, vector_arr2)</span>
 </code></dt>
 <dd>
@@ -463,7 +461,7 @@ def is_equal(vector_arr1, vector_arr2, digit=0):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def sum_vectors(vector_arr1, vector_arr2):
-    &#39;&#39;&#39; Return sum of vectors &#39;&#39;&#39;
+    &#34;&#34;&#34; Return sum of vectors &#34;&#34;&#34;
     ensure_full_vector(vector_arr1, vector_arr2)
     return [vector_arr1[i] + vector_arr2[i] for i in range(len(vector_arr1))]</code></pre>
 </details>
@@ -481,30 +479,30 @@ def is_equal(vector_arr1, vector_arr2, digit=0):
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="math_func.Vector" href="index.html">math_func.Vector</a></code></li>
+<li><code><a title="math_func.vector" href="index.html">math_func.vector</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
-<li><code><a title="math_func.Vector.Vector.after_comma" href="#math_func.Vector.Vector.after_comma">after_comma</a></code></li>
-<li><code><a title="math_func.Vector.Vector.angular" href="#math_func.Vector.Vector.angular">angular</a></code></li>
-<li><code><a title="math_func.Vector.Vector.change_direction" href="#math_func.Vector.Vector.change_direction">change_direction</a></code></li>
-<li><code><a title="math_func.Vector.Vector.cos_vectors" href="#math_func.Vector.Vector.cos_vectors">cos_vectors</a></code></li>
-<li><code><a title="math_func.Vector.Vector.dif_vectors" href="#math_func.Vector.Vector.dif_vectors">dif_vectors</a></code></li>
-<li><code><a title="math_func.Vector.Vector.div_vectors" href="#math_func.Vector.Vector.div_vectors">div_vectors</a></code></li>
-<li><code><a title="math_func.Vector.Vector.is_collinear" href="#math_func.Vector.Vector.is_collinear">is_collinear</a></code></li>
-<li><code><a title="math_func.Vector.Vector.is_directional" href="#math_func.Vector.Vector.is_directional">is_directional</a></code></li>
-<li><code><a title="math_func.Vector.Vector.is_equal" href="#math_func.Vector.Vector.is_equal">is_equal</a></code></li>
-<li><code><a title="math_func.Vector.Vector.is_not_directional" href="#math_func.Vector.Vector.is_not_directional">is_not_directional</a></code></li>
-<li><code><a title="math_func.Vector.Vector.is_orthogonal" href="#math_func.Vector.Vector.is_orthogonal">is_orthogonal</a></code></li>
-<li><code><a title="math_func.Vector.Vector.is_scalar" href="#math_func.Vector.Vector.is_scalar">is_scalar</a></code></li>
-<li><code><a title="math_func.Vector.Vector.lenght" href="#math_func.Vector.Vector.lenght">lenght</a></code></li>
-<li><code><a title="math_func.Vector.Vector.mul_vectors" href="#math_func.Vector.Vector.mul_vectors">mul_vectors</a></code></li>
-<li><code><a title="math_func.Vector.Vector.normalize" href="#math_func.Vector.Vector.normalize">normalize</a></code></li>
-<li><code><a title="math_func.Vector.Vector.projection" href="#math_func.Vector.Vector.projection">projection</a></code></li>
-<li><code><a title="math_func.Vector.Vector.scalar" href="#math_func.Vector.Vector.scalar">scalar</a></code></li>
-<li><code><a title="math_func.Vector.Vector.sort_arguments" href="#math_func.Vector.Vector.sort_arguments">sort_arguments</a></code></li>
-<li><code><a title="math_func.Vector.Vector.sum_vectors" href="#math_func.Vector.Vector.sum_vectors">sum_vectors</a></code></li>
+<li><code><a title="math_func.vector.vector.angular" href="#math_func.vector.vector.angular">angular</a></code></li>
+<li><code><a title="math_func.vector.vector.change_direction" href="#math_func.vector.vector.change_direction">change_direction</a></code></li>
+<li><code><a title="math_func.vector.vector.cos_vectors" href="#math_func.vector.vector.cos_vectors">cos_vectors</a></code></li>
+<li><code><a title="math_func.vector.vector.dif_vectors" href="#math_func.vector.vector.dif_vectors">dif_vectors</a></code></li>
+<li><code><a title="math_func.vector.vector.div_vectors" href="#math_func.vector.vector.div_vectors">div_vectors</a></code></li>
+<li><code><a title="math_func.vector.vector.is_almost_equal" href="#math_func.vector.vector.is_almost_equal">is_almost_equal</a></code></li>
+<li><code><a title="math_func.vector.vector.is_collinear" href="#math_func.vector.vector.is_collinear">is_collinear</a></code></li>
+<li><code><a title="math_func.vector.vector.is_directional" href="#math_func.vector.vector.is_directional">is_directional</a></code></li>
+<li><code><a title="math_func.vector.vector.is_equal" href="#math_func.vector.vector.is_equal">is_equal</a></code></li>
+<li><code><a title="math_func.vector.vector.is_not_directional" href="#math_func.vector.vector.is_not_directional">is_not_directional</a></code></li>
+<li><code><a title="math_func.vector.vector.is_orthogonal" href="#math_func.vector.vector.is_orthogonal">is_orthogonal</a></code></li>
+<li><code><a title="math_func.vector.vector.is_scalar" href="#math_func.vector.vector.is_scalar">is_scalar</a></code></li>
+<li><code><a title="math_func.vector.vector.lenght" href="#math_func.vector.vector.lenght">lenght</a></code></li>
+<li><code><a title="math_func.vector.vector.mul_vectors" href="#math_func.vector.vector.mul_vectors">mul_vectors</a></code></li>
+<li><code><a title="math_func.vector.vector.normalize" href="#math_func.vector.vector.normalize">normalize</a></code></li>
+<li><code><a title="math_func.vector.vector.projection" href="#math_func.vector.vector.projection">projection</a></code></li>
+<li><code><a title="math_func.vector.vector.scalar" href="#math_func.vector.vector.scalar">scalar</a></code></li>
+<li><code><a title="math_func.vector.vector.sort_arguments" href="#math_func.vector.vector.sort_arguments">sort_arguments</a></code></li>
+<li><code><a title="math_func.vector.vector.sum_vectors" href="#math_func.vector.vector.sum_vectors">sum_vectors</a></code></li>
 </ul>
 </li>
 </ul>
