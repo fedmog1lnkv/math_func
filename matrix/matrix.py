@@ -64,16 +64,16 @@ def row_switch(matrix, row1, row2, do_copy=True):
     """ Returns a matrix with permuted rows by indexes """
     if do_copy == True:
         matrix_copy = deepcopy(matrix)
-        matrix_copy[row1 - 1], matrix_copy[row2 - 1] = matrix_copy[row2 - 1], matrix_copy[row1 - 1]
+        matrix_copy[row1], matrix_copy[row2] = matrix_copy[row2], matrix_copy[row1]
         return matrix_copy
-    matrix[row1 - 1], matrix[row2 - 1] = matrix[row2 - 1], matrix[row1 - 1]
+    matrix[row1], matrix[row2] = matrix[row2], matrix[row1]
     return matrix
 
 
 def mul_matrix_row(matrix, row, scalar):
     """ Multiplies a row from the matrix by a given index by a scalar """
     ensure_types_matrix(matrix)
-    matrix[row - 1] = vec.mul_vectors(matrix[row - 1], scalar)
+    matrix[row] = vec.mul_vectors(matrix[row], scalar)
     return matrix
 
 
@@ -81,7 +81,7 @@ def sum_matrix_rows(matrix, row1, row2, scalar):
     """ Returns the matrix in which the rows are stacked, which are multiplied by a scalar """
     ensure_types_matrix(matrix)
     matrix = [row for row in matrix]
-    matrix[row1 - 1] = vec.sum_vectors(matrix[row1 - 1], vec.mul_vectors(get_row(matrix, row2), scalar))
+    matrix[row1] = vec.sum_vectors(matrix[row1], vec.mul_vectors(get_row(matrix, row2), scalar))
     return matrix
 
 
@@ -89,5 +89,5 @@ def dif_matrix_rows(matrix, row1, row2, scalar):
     """ Returns a matrix in which the rows are subtracted, which are multiplied by a scalar """
     ensure_types_matrix(matrix)
     matrix = [row for row in matrix]
-    matrix[row1 - 1] = vec.dif_vectors(matrix[row1 - 1], vec.mul_vectors(get_row(matrix, row2), scalar))
+    matrix[row1] = vec.dif_vectors(matrix[row1], vec.mul_vectors(get_row(matrix, row2), scalar))
     return matrix
