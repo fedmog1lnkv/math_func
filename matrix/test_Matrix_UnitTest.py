@@ -90,13 +90,13 @@ class Tests_Vector(unittest.TestCase):
         m = [[-85, -23, 11], [73, -10, 25], [58, -83, 25]]
         row1 = 1
         row2 = 2
-        self.assertEqual((mat.row_switch(m, row1, row2)), [[73, -10, 25], [-85, -23, 11], [58, -83, 25]])
+        self.assertEqual((mat.row_switch(m, row1, row2)), [[-85, -23, 11], [58, -83, 25], [73, -10, 25]])
 
     def test_positiv_mul_matrix_row_matrix(self):
         m = [[-91, 18, -35], [-16, 18, -48], [-45, 60, -22]]
         row = 1
         scalar = 63
-        self.assertEqual((mat.mul_matrix_row(m, row, scalar)), [[-5733, 1134, -2205], [-16, 18, -48], [-45, 60, -22]])
+        self.assertEqual((mat.mul_matrix_row(m, row, scalar)), [[-91, 18, -35], [-1008, 1134, -3024], [-45, 60, -22]])
 
     def test_negative_TypeError_mul_matrix_row_matrix(self):
         m = [[-91, 18, -35], [-16, 18, -48], [-45, "60", -22]]
@@ -110,7 +110,7 @@ class Tests_Vector(unittest.TestCase):
         row1 = 0
         row2 = 1
         scalar = -2
-        self.assertEqual((mat.sum_matrix_rows(m, row1, row2, scalar)), [[87, 75], [26, -29]])
+        self.assertEqual((mat.sum_matrix_rows(m, row1, row2, scalar)), [[139, 17], [-26, 29]])
 
     def test_negative_TypeError_sum_matrix_rows_matrix(self):
         m = [[87, "75"], [-26, 29]]
@@ -126,7 +126,7 @@ class Tests_Vector(unittest.TestCase):
         row2 = 2
         scalar = 89
         self.assertEqual((mat.dif_matrix_rows(m, row1, row2, scalar)),
-                         [[-1950, -160, 2450], [-59, 12, -60], [23, 1, -28]])
+                         [[97, -71, -42], [-2106, -77, 2432], [23, 1, -28]])
 
     def test_negative_TypeError_dif_matrix_rows_matrix(self):
         m = [[97, -71, -42], [-59, 12, -60], [23, 1, "-28"]]
