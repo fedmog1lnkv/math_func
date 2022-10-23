@@ -1,5 +1,6 @@
 from matrix.matrix import *
 from errors import *
+from copy import deepcopy
 import logging as log
 import os
 
