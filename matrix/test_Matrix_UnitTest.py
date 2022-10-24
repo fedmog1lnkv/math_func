@@ -2,7 +2,7 @@ import unittest
 import matrix as mat
 
 
-class Tests_Vector(unittest.TestCase):
+class Tests_Matrix(unittest.TestCase):
 
     def test_positiv_sum_matrix(self):
         m1 = [[-6, -73, 96, 12], [59, 70, -100, -96], [-63, -33, 64, -56], [-83, -29, -22, 3]]

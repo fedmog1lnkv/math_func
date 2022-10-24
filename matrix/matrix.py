@@ -1,4 +1,4 @@
-import vector.vector as vec
+import vector as vec
 from errors import *
 from copy import deepcopy
 
