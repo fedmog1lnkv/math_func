@@ -7,6 +7,9 @@ EPS = 1e-10
 def is_almost_equal(a, b, eps=EPS):
     return abs(a - b) <= eps
 
+def is_vector(matrix):
+    return type(matrix) == list and type(matrix[0]) in [int, float]
+
 
 def lenght(vector_arr):
     """ Returns the length of the vector """

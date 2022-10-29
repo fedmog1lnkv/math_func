@@ -1,4 +1,4 @@
-import vector as vec
+import vector.vector as vec
 from errors import *
 from copy import deepcopy
 
@@ -22,7 +22,7 @@ def transportation_matrix(matrix):
 
 
 def sort_arguments(matrix1, matrix2):
-    if vec.is_scalar(matrix1):
+    if vec.is_scalar(matrix1) or vec.is_vector(matrix1):
         ensure_types_matrix(matrix2)
         return matrix2, matrix1
     ensure_types_matrix(matrix1)
@@ -34,6 +34,17 @@ def mul_matrix(matrix1, matrix2):
     if vec.is_scalar(matrix1) or vec.is_scalar(matrix2):
         matrix1, scal = sort_arguments(matrix1, matrix2)
         return [vec.mul_vectors(matrix1[IX_row], scal) for IX_row in range(len(matrix1))]
+
+    elif vec.is_vector(matrix1) or vec.is_vector(matrix2):
+        matrix1, vector = sort_arguments(matrix1, matrix2)
+        matrix_out = []
+        for i in range(len(matrix1)):
+            for c in range(len(vector)):
+                trunk = 0
+                for j in range(len(matrix1[c])):
+                    trunk += matrix1[i][j] * vector[j]
+            matrix_out += [trunk]
+        return matrix_out
 
     ensure_full_matrix(matrix1, matrix2)
     matrix_out = []
