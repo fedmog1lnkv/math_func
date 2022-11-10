@@ -6,7 +6,7 @@ import logging as log
 import os
 
 
-def Gauss_Jordan_algorithm(matrix, b, log_matrix=False):
+def gauss_jordan_algorithm(matrix, b, log_matrix=False):
     """
     Returns the result of solving a system of linear algebraic equations by the Gauss-Jordan method
     matrix - matrix of coefficients
