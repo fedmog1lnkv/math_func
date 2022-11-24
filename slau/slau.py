@@ -7,11 +7,11 @@ import os
 
 
 def gauss_jordan_algorithm(matrix, b, log_matrix=False):
-    """
+    '''
     Returns the result of solving a system of linear algebraic equations by the Gauss-Jordan method
     matrix - matrix of coefficients
     b - vector of constant terms
-    """
+    '''
     ensure_full_slau(matrix)
     log_management(log_matrix)
 
@@ -50,7 +50,7 @@ def slau_by_inverse_matrix(matrix, b, log_matrix = False):
     return mul_matrix(inverse_matrix(matrix, log_matrix), b)
 
 def partial_rotation(matrix, IX_column):
-    """ Partial rotation (removes zeros on the diagonal) """
+    ''' Partial rotation (removes zeros on the diagonal) '''
     if abs(matrix[IX_column][IX_column]) < 1.0e-10:
         n = len(matrix)
         for i in range(IX_column + 1, n):
@@ -61,7 +61,7 @@ def partial_rotation(matrix, IX_column):
 
 
 def dividing_by_leading_element(matrix):
-    """ Dividing a row of a matrix by a leading element """
+    ''' Dividing a row of a matrix by a leading element '''
     n = len(matrix)
     for IX_row in range(n):
         leading_element = matrix[IX_row][IX_row]
@@ -72,7 +72,7 @@ def dividing_by_leading_element(matrix):
 
 
 def inverse_matrix(matrix, log_matrix=False):
-    """ Finding the inverse matrix by the Gauss-Jordan method """
+    ''' Finding the inverse matrix by the Gauss-Jordan method '''
     ensure_full_slau(matrix)
     log_management(log_matrix)
 
@@ -95,14 +95,14 @@ def inverse_matrix(matrix, log_matrix=False):
 
 
 def adding_unit_matrix(matrix):
-    """ Adds a unit matrix to the end of the matrix """
+    ''' Adds a unit matrix to the end of the matrix '''
     for i in range(len(matrix)):
         matrix[i] += [int(i == j) for j in range(len(matrix))]
     return matrix
 
 
 def straight_move(matrix):
-    """ Bringing the extended matrix to a stepwise form """
+    ''' Bringing the extended matrix to a stepwise form '''
     n = len(matrix)
     for x in range(n):
         matrix = partial_rotation(matrix, IX_column=x)
@@ -114,7 +114,7 @@ def straight_move(matrix):
 
 
 def reverse_move(matrix):
-    """ Reducing an extended matrix to a single one """
+    ''' Reducing an extended matrix to a single one '''
     n = len(matrix)
     for x in reversed(range(n)):
         for i in reversed(range(x)):
@@ -134,7 +134,7 @@ def log_management(condition):
 
 
 def matrix_for_log(matrix):
-    """ Beautiful matrix output for logs """
+    ''' Beautiful matrix output for logs '''
     n = len(matrix)
     logg_msg = "\n"
     for i in range(len(matrix)):
