@@ -39,7 +39,7 @@ def mul_matrix(matrix1, matrix2):
         matrix1, vector = sort_arguments(matrix1, matrix2)
         matrix_out = []
         for i in range(len(matrix1)):
-            for c in range(len(vector)):
+            for c in range(len(matrix1)):
                 trunk = 0
                 for j in range(len(matrix1[c])):
                     trunk += matrix1[i][j] * vector[j]
@@ -50,9 +50,9 @@ def mul_matrix(matrix1, matrix2):
     matrix_out = []
     for i in range(len(matrix1)):
         trunk = []
-        for j in range(len(matrix2)):
+        for j in range(len(matrix2[i])):
             cell = 0
-            for k in range(len(matrix1[j])):
+            for k in range(len(matrix1[i])):
                 cell += matrix1[i][k] * matrix2[k][j]
             trunk += [cell]
         matrix_out += [trunk]
