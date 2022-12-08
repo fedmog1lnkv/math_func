@@ -2,7 +2,7 @@ from slau import *
 from copy import deepcopy
 
 
-def split_matrix(matrix):
+def split_matrix_with_replace(matrix):
     ''' Return y values as result and replace y values to 1 in coords_matrix '''
     matrix = deepcopy(matrix)
     b = []
@@ -14,7 +14,7 @@ def split_matrix(matrix):
 
 def get_line_equation(matrix):
     ''' Return line equation '''
-    matrix, b = split_matrix(matrix)
+    matrix, b = split_matrix_with_replace(matrix)
     return slau_by_inverse_matrix(matrix, b)
 
 

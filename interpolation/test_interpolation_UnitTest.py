@@ -1,12 +1,12 @@
 import unittest
 import interpolation as inter
-from interpolation.interpolation import split_matrix, get_line_equation, get_basic_polynomials
+from interpolation.interpolation import split_matrix_with_replace, get_line_equation, get_basic_polynomials
 
 
 class Tests_Interpolation(unittest.TestCase):
 
     def test_split_matrix(self):
-        self.assertEqual(split_matrix([[2, 5], [6, 9]]), ([[2, 1], [6, 1]], [5, 9]))
+        self.assertEqual(split_matrix_with_replace([[2, 5], [6, 9]]), ([[2, 1], [6, 1]], [5, 9]))
 
     def test_get_line_equation(self):
         self.assertEqual(get_line_equation([[2, 5], [6, 9]]), [1, 3])
