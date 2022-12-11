@@ -20,3 +20,8 @@ def draw_approximation(matrix, vector_x):
     plt.grid()
     plt.show()
 
+def draw_approximation_graph_example():
+    ''' Draw example linear approximation '''
+    data_xy = [[1, 2], [3, 4], [3.5, 3], [6, 7]]
+    x = [1, 3, 5]
+    draw_approximation(data_xy, x)

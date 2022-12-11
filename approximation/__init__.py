@@ -2,3 +2,4 @@ from approximation.approximation import least_squares_method
 from approximation.approximation import linear_approximation
 from approximation.approximation import polinom_approximation
 from approximation.graphs import draw_approximation
+from approximation.graphs import draw_approximation_graph_example
