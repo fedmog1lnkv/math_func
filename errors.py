@@ -77,3 +77,13 @@ def ensure_shape_slau(arr):
 def ensure_full_slau(arr):
     ensure_types_matrix(arr)
     ensure_shape_slau(arr)
+
+
+# ----------Error for maclaurin----------
+def ensure_types_x_n(x, n):
+    if n < 0:
+        raise ValueError(f"n must be bigger then 0, not {n}")
+    elif type(n) != int:
+        raise TypeError(f"n must be int type, not {type(n)}")
+    elif type(x) not in (int, float):
+        raise TypeError(f"x must be int or float type, not {type(x)}")
