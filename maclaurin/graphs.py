@@ -19,6 +19,7 @@ def show_graph(x, y, x_data, y_data):
 
 def draw_exp(x, n):
     ''' Draws an exponent on the Maclaurin series using pyplot '''
+    plt.title("exponent")
     x_data = [i / 10 for i in range(-50, 50)]
     y_exp = [exp(X) for X in x_data]
     plt.plot(x_data, y_exp, color="blue")
@@ -31,6 +32,7 @@ def draw_exp(x, n):
 
 def draw_cos(x, n):
     ''' Draws a cosine along the Maclaurin series using pyplot '''
+    plt.title("cosine")
     x_data = [i / 10 for i in range(-50, 50)]
     y_cos = [cos(X) for X in x_data]
     plt.plot(x_data, y_cos, color="blue")
@@ -43,6 +45,7 @@ def draw_cos(x, n):
 
 def draw_sin(x, n):
     ''' Draws a sinusoid along the Maclaurin series using pyplot '''
+    plt.title("sinusoid")
     x_data = [i / 10 for i in range(-50, 50)]
     y_sin = [sin(X) for X in x_data]
     plt.plot(x_data, y_sin, color="blue")
@@ -51,3 +54,12 @@ def draw_sin(x, n):
     y_dot = maclaurin_sin(x, n)
 
     show_graph(x, y_dot, x_data, y_data)
+
+
+def draw_maclaurin_example():
+    draw_exp(1, 2)
+    draw_sin(1, 2)
+    draw_cos(1, 2)
+
+
+draw_maclaurin_example()
